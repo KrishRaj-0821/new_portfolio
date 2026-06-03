@@ -1708,7 +1708,7 @@ textarea.form-input {
 .floating-controls {
   position: fixed;
   top: 20px;
-  right: 16px;
+  right: 68px;
   display: flex;
   gap: 10px;
   z-index: 101;

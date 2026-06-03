@@ -235,7 +235,7 @@ if (sidebar && sidebarBtn) {
 // ─── TYPING EFFECT ──────────────────────────────────────────
 const typingEl = document.querySelector('.typed-text');
 if (typingEl) {
-  const words = ['Full Stack Developer', 'AI/ML Enthusiast', 'Web Designer', 'Problem Solver', 'CS Student'];
+  const words = ['Full Stack Developer', 'AI/ML Enthusiast', 'Web Designer', 'Python Programmer', 'Problem Solver'];
   let wordIdx = 0, charIdx = 0, isDeleting = false;
 
   const type = () => {
