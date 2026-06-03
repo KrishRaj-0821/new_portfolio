@@ -515,6 +515,8 @@ main {
   border-top: 1px solid var(--border-glass);
   z-index: 100;
   padding: 0 8px;
+  border-top-left-radius: 25px ;
+  border-top-right-radius: 25px;
 }
 
 .navbar-list {
