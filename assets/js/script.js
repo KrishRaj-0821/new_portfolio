@@ -473,8 +473,27 @@ const createToastContainer = () => {
   return el;
 };
 
-// ─── SCROLL TO TOP ───────────────────────────────────────────
+// ─── SCROLL TO TOP & PROGRESS WIDGET ─────────────────────────
 const scrollTopBtn = document.querySelector('.scroll-top');
+const scrollCircle = document.querySelector('.progress-ring-circle');
+
+if (scrollCircle) {
+  const circumference = 2 * Math.PI * 20; // radius is 20
+  scrollCircle.style.strokeDasharray = circumference;
+  scrollCircle.style.strokeDashoffset = circumference;
+
+  const updateProgress = () => {
+    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (totalHeight > 0) {
+      const scrollPercent = window.scrollY / totalHeight;
+      const offset = circumference - (scrollPercent * circumference);
+      scrollCircle.style.strokeDashoffset = Math.max(0, Math.min(circumference, offset));
+    }
+  };
+
+  window.addEventListener('scroll', updateProgress);
+  window.addEventListener('resize', updateProgress);
+}
 
 window.addEventListener('scroll', () => {
   if (scrollTopBtn) {
@@ -483,7 +502,48 @@ window.addEventListener('scroll', () => {
 });
 
 if (scrollTopBtn) {
-  scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  scrollTopBtn.addEventListener('click', () => {
+    // Add launching animation class
+    scrollTopBtn.classList.add('launching');
+    
+    // Play a synthesized rocket swoosh sound!
+    if (soundEnabled) {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        osc.type = 'sawtooth';
+        
+        // Swoosh frequency sweep
+        osc.frequency.setValueAtTime(80, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.6);
+        
+        gainNode.gain.setValueAtTime(0.01, audioCtx.currentTime);
+        gainNode.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.2);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
+        
+        // Bandpass filter to create wind/exhaust resonance
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.value = 400;
+        
+        osc.connect(filter);
+        filter.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.6);
+      } catch (e) {}
+    }
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Remove animation class after animation completes (800ms)
+    setTimeout(() => {
+      scrollTopBtn.classList.remove('launching');
+    }, 800);
+  });
 }
 
 // ─── MODAL ───────────────────────────────────────────────────

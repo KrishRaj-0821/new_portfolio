@@ -44,9 +44,14 @@
   <div class="cursor"></div>
   <div class="cursor-follower"></div>
 
-  <!-- ═══ SCROLL TO TOP ═══ -->
-  <button class="scroll-top" aria-label="Scroll to top">
-    <ion-icon name="arrow-up-outline"></ion-icon>
+  <!-- ═══ SCROLL PROGRESS ROCKET WIDGET ═══ -->
+  <button class="scroll-top" aria-label="Scroll to top" data-tooltip="Launch to Top">
+    <svg class="progress-ring" width="44" height="44">
+      <circle class="progress-ring-circle" stroke="var(--accent-primary)" stroke-width="2" fill="transparent" r="20" cx="22" cy="22"/>
+    </svg>
+    <div class="rocket-wrapper">
+      <ion-icon name="rocket-outline" class="rocket-icon"></ion-icon>
+    </div>
   </button>
 
   <!-- ═══ FLOATING CONTROLS ═══ -->
