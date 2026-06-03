@@ -49,6 +49,41 @@
     <ion-icon name="arrow-up-outline"></ion-icon>
   </button>
 
+  <!-- ═══ FLOATING CONTROLS ═══ -->
+  <div class="floating-controls">
+    <button class="control-btn sound-btn" aria-label="Toggle click sound" data-tooltip="Mute sound">
+      <ion-icon name="volume-medium-outline"></ion-icon>
+    </button>
+    <button class="control-btn terminal-btn" aria-label="Open Terminal" data-tooltip="Terminal (Ctrl+K)">
+      <ion-icon name="terminal-outline"></ion-icon>
+    </button>
+  </div>
+
+  <!-- ═══ TERMINAL MODAL ═══ -->
+  <div class="terminal-overlay" id="terminal-modal">
+    <div class="terminal-window">
+      <div class="terminal-header">
+        <div class="terminal-dots">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <div class="terminal-title">krishraj@vvit-cse:~</div>
+        <button class="terminal-close" aria-label="Close terminal">&times;</button>
+      </div>
+      <div class="terminal-body">
+        <div class="terminal-output" id="terminal-output">
+          <div class="output-line system-msg">Welcome to Krish Raj's Interactive Terminal.</div>
+          <div class="output-line system-msg">Type <span class="highlight">help</span> to view available commands. Press <span class="highlight">Esc</span> to close.</div>
+        </div>
+        <div class="terminal-input-row">
+          <span class="terminal-prompt">krishraj@vvit-cse:~$</span>
+          <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" placeholder="type a command...">
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ═══ TOAST CONTAINER ═══ -->
   <div class="toast-container"></div>
 

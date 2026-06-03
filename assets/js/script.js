@@ -17,11 +17,61 @@ window.addEventListener('load', () => {
   }, 1800);
 });
 
-// ─── CUSTOM CURSOR ──────────────────────────────────────────
+// ─── SOUND EFFECTS (WEB AUDIO API SYNTH) ────────────────────
+let soundEnabled = true;
+
+const playClickSound = () => {
+  if (!soundEnabled) return;
+  try {
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    // Tactile switch bounce (high frequency transient)
+    const osc1 = audioCtx.createOscillator();
+    const gain1 = audioCtx.createGain();
+    osc1.type = 'triangle';
+    osc1.frequency.setValueAtTime(1200, audioCtx.currentTime);
+    osc1.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.015);
+    
+    gain1.gain.setValueAtTime(0.04, audioCtx.currentTime);
+    gain1.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.015);
+    
+    osc1.connect(gain1);
+    gain1.connect(audioCtx.destination);
+    osc1.start();
+    osc1.stop(audioCtx.currentTime + 0.02);
+    
+    // Keycap bottoming out resonance (lower frequency body)
+    const osc2 = audioCtx.createOscillator();
+    const gain2 = audioCtx.createGain();
+    osc2.type = 'sine';
+    osc2.frequency.setValueAtTime(150, audioCtx.currentTime);
+    osc2.frequency.exponentialRampToValueAtTime(80, audioCtx.currentTime + 0.035);
+    
+    gain2.gain.setValueAtTime(0.06, audioCtx.currentTime);
+    gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.035);
+    
+    osc2.connect(gain2);
+    gain2.connect(audioCtx.destination);
+    osc2.start();
+    osc2.stop(audioCtx.currentTime + 0.04);
+  } catch (e) {
+    // Fail silently on browsers that block audio context
+  }
+};
+
+// Global click event to play sound on interactive elements
+document.addEventListener('click', (e) => {
+  if (e.target.closest('a, button, input, textarea, [data-nav-link], .social-link, .select-list li')) {
+    playClickSound();
+  }
+});
+
+// ─── CUSTOM CURSOR & MAGNET PHYSICS ─────────────────────────
 const cursor = document.querySelector('.cursor');
 const cursorFollower = document.querySelector('.cursor-follower');
 
 let mouseX = 0, mouseY = 0, followX = 0, followY = 0;
+let isHovered = false;
 
 document.addEventListener('mousemove', (e) => {
   mouseX = e.clientX;
@@ -33,25 +83,58 @@ document.addEventListener('mousemove', (e) => {
 });
 
 function animateCursor() {
-  followX += (mouseX - followX) * 0.12;
-  followY += (mouseY - followY) * 0.12;
-  if (cursorFollower) {
-    cursorFollower.style.left = followX - 14 + 'px';
-    cursorFollower.style.top = followY - 14 + 'px';
+  if (!isHovered) {
+    followX += (mouseX - followX) * 0.12;
+    followY += (mouseY - followY) * 0.12;
+    if (cursorFollower) {
+      cursorFollower.style.left = followX - 14 + 'px';
+      cursorFollower.style.top = followY - 14 + 'px';
+    }
   }
   requestAnimationFrame(animateCursor);
 }
 animateCursor();
 
-// Cursor expand on interactive elements
-document.querySelectorAll('a, button, [data-nav-link], .project-item, .service-item, .social-link').forEach(el => {
-  el.addEventListener('mouseenter', () => {
+// Magnet snaps and expansion on interactive items
+document.querySelectorAll('a, button, [data-nav-link], .social-link, .control-btn').forEach(el => {
+  el.addEventListener('mousemove', (e) => {
+    isHovered = true;
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    
+    // Magnetic pull effect on element itself
+    el.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+    
+    // Snaps the follower ring directly to the element shape
+    if (cursorFollower) {
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      followX += (centerX - followX) * 0.25;
+      followY += (centerY - followY) * 0.25;
+      
+      cursorFollower.style.left = followX - (rect.width + 12) / 2 + 'px';
+      cursorFollower.style.top = followY - (rect.height + 12) / 2 + 'px';
+      cursorFollower.style.width = rect.width + 12 + 'px';
+      cursorFollower.style.height = rect.height + 12 + 'px';
+      cursorFollower.style.borderRadius = 'var(--radius-md)';
+      cursorFollower.style.borderColor = 'var(--accent-primary)';
+      cursorFollower.style.transform = 'scale(1)';
+    }
     cursor?.classList.add('expand');
-    cursorFollower?.classList.add('expand');
   });
+
   el.addEventListener('mouseleave', () => {
+    isHovered = false;
+    el.style.transform = '';
+    if (cursorFollower) {
+      cursorFollower.style.width = '28px';
+      cursorFollower.style.height = '28px';
+      cursorFollower.style.borderRadius = '50%';
+      cursorFollower.style.borderColor = 'rgba(124, 58, 237, 0.5)';
+      cursorFollower.style.transform = '';
+    }
     cursor?.classList.remove('expand');
-    cursorFollower?.classList.remove('expand');
   });
 });
 
@@ -234,6 +317,38 @@ const revealOnScroll = () => {
   reveals.forEach(el => observer.observe(el));
 };
 
+// ─── TEXT SCRAMBLE DECRYPT EFFECT ───────────────────────────
+const scrambleText = (el, originalHtml, textContent, duration = 600) => {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#%&*$';
+  const start = performance.now();
+  
+  const animate = (now) => {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    
+    let result = '';
+    for (let i = 0; i < textContent.length; i++) {
+      if (textContent[i] === ' ') {
+        result += ' ';
+        continue;
+      }
+      const letterProgress = i / textContent.length;
+      if (progress >= letterProgress) {
+        result += textContent[i];
+      } else {
+        result += chars[Math.floor(Math.random() * chars.length)];
+      }
+    }
+    el.textContent = result;
+    if (progress < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      el.innerHTML = originalHtml;
+    }
+  };
+  requestAnimationFrame(animate);
+};
+
 // ─── NAVIGATION ─────────────────────────────────────────────
 const navigationLinks = document.querySelectorAll('[data-nav-link]');
 const pages = document.querySelectorAll('[data-page]');
@@ -252,6 +367,12 @@ if (navigationLinks.length && pages.length) {
       if (targetPage) {
         targetPage.classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Trigger text scramble on heading title
+        const titleEl = targetPage.querySelector('.article-title');
+        if (titleEl) {
+          scrambleText(titleEl, titleEl.innerHTML, titleEl.textContent.trim());
+        }
 
         // Re-trigger animations when switching tabs
         setTimeout(() => {
@@ -434,6 +555,153 @@ if (emailLink) {
     navigator.clipboard?.writeText(emailLink.href.replace('mailto:', ''))
       .then(() => showToast('Email copied to clipboard!', 'success'))
       .catch(() => {});
+  });
+}
+
+// ─── CONTROL SWITCHES (SOUND & TERMINAL TOGGLES) ──────────────
+const soundBtn = document.querySelector('.sound-btn');
+const terminalBtn = document.querySelector('.terminal-btn');
+const terminalModal = document.getElementById('terminal-modal');
+const terminalClose = document.querySelector('.terminal-close');
+const terminalInput = document.getElementById('terminal-input');
+const terminalOutput = document.getElementById('terminal-output');
+
+if (soundBtn) {
+  soundBtn.addEventListener('click', () => {
+    soundEnabled = !soundEnabled;
+    soundBtn.classList.toggle('active', !soundEnabled);
+    if (soundEnabled) {
+      soundBtn.querySelector('ion-icon').setAttribute('name', 'volume-medium-outline');
+      soundBtn.setAttribute('data-tooltip', 'Mute sound');
+      showToast('Sound enabled', 'success');
+    } else {
+      soundBtn.querySelector('ion-icon').setAttribute('name', 'volume-mute-outline');
+      soundBtn.setAttribute('data-tooltip', 'Unmute sound');
+      showToast('Sound muted', 'error');
+    }
+  });
+}
+
+const toggleTerminal = () => {
+  if (terminalModal) {
+    const isActive = terminalModal.classList.toggle('active');
+    if (isActive && terminalInput) {
+      setTimeout(() => terminalInput.focus(), 100);
+    }
+  }
+};
+
+if (terminalBtn) terminalBtn.addEventListener('click', toggleTerminal);
+if (terminalClose) terminalClose.addEventListener('click', toggleTerminal);
+
+// Toggle on Ctrl+K
+document.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+    e.preventDefault();
+    toggleTerminal();
+  }
+  if (e.key === 'Escape' && terminalModal && terminalModal.classList.contains('active')) {
+    toggleTerminal();
+  }
+});
+
+// ─── TERMINAL COMMAND PARSER ───────────
+if (terminalInput && terminalOutput) {
+  terminalInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const fullCmd = terminalInput.value.trim();
+      terminalInput.value = '';
+      if (!fullCmd) return;
+
+      // Print command to terminal
+      const cmdLine = document.createElement('div');
+      cmdLine.className = 'output-line cmd-msg';
+      cmdLine.textContent = `krishraj@vvit-cse:~$ ${fullCmd}`;
+      terminalOutput.appendChild(cmdLine);
+
+      // Parse command
+      const parts = fullCmd.toLowerCase().split(' ');
+      const cmd = parts[0];
+      const arg = parts[1];
+
+      const responseLine = document.createElement('div');
+      responseLine.className = 'output-line';
+
+      switch (cmd) {
+        case 'help':
+          responseLine.innerHTML = `Available commands:<br>
+  - <span class="highlight">about</span> : Switch to About page<br>
+  - <span class="highlight">resume</span> : Switch to Resume page<br>
+  - <span class="highlight">projects</span> : Switch to Projects page<br>
+  - <span class="highlight">blog</span> : Switch to Blog page<br>
+  - <span class="highlight">contact</span> : Switch to Contact page<br>
+  - <span class="highlight">sound [on/off]</span> : Enable or disable audio clicks<br>
+  - <span class="highlight">socials</span> : List social media links<br>
+  - <span class="highlight">github</span> : Open GitHub profile in new tab<br>
+  - <span class="highlight">clear</span> : Clear screen`;
+          break;
+
+        case 'about':
+        case 'resume':
+        case 'projects':
+        case 'blog':
+        case 'contact':
+          const navId = cmd === 'projects' ? 'nav-portfolio' : `nav-${cmd}`;
+          const btn = document.getElementById(navId);
+          if (btn) {
+            btn.click();
+            responseLine.textContent = `Navigated to ${cmd} page successfully.`;
+          } else {
+            responseLine.className = 'output-line error-msg';
+            responseLine.textContent = `Error: Navigation link for '${cmd}' not found.`;
+          }
+          break;
+
+        case 'sound':
+          if (arg === 'on') {
+            soundEnabled = true;
+            if (soundBtn) {
+              soundBtn.querySelector('ion-icon').setAttribute('name', 'volume-medium-outline');
+              soundBtn.classList.remove('active');
+            }
+            responseLine.textContent = 'Audio click sounds enabled.';
+          } else if (arg === 'off') {
+            soundEnabled = false;
+            if (soundBtn) {
+              soundBtn.querySelector('ion-icon').setAttribute('name', 'volume-mute-outline');
+              soundBtn.classList.add('active');
+            }
+            responseLine.textContent = 'Audio click sounds disabled.';
+          } else {
+            responseLine.className = 'output-line error-msg';
+            responseLine.textContent = "Usage: sound [on|off]";
+          }
+          break;
+
+        case 'socials':
+          responseLine.innerHTML = `Social Profiles:<br>
+  - <span class="highlight">GitHub</span>: https://github.com/KrishRaj-0821/<br>
+  - <span class="highlight">LinkedIn</span>: https://www.linkedin.com/in/krish-raj-4932a6322/<br>
+  - <span class="highlight">Instagram</span>: @raj_kishu0821`;
+          break;
+
+        case 'github':
+          window.open('https://github.com/KrishRaj-0821/', '_blank');
+          responseLine.textContent = 'Opening GitHub in a new tab...';
+          break;
+
+        case 'clear':
+          terminalOutput.innerHTML = '';
+          return;
+
+        default:
+          responseLine.className = 'output-line error-msg';
+          responseLine.textContent = `Command not found: '${cmd}'. Type 'help' for support.`;
+      }
+
+      terminalOutput.appendChild(responseLine);
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    }
   });
 }
 
