@@ -109,19 +109,20 @@ body {
 body::before {
   content: '';
   position: fixed;
-  inset: 0;
+  inset: -10%;
   background:
-    radial-gradient(ellipse at 20% 20%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 80%, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, rgba(236, 72, 153, 0.04) 0%, transparent 60%);
+    radial-gradient(circle at 15% 15%, rgba(139, 92, 246, 0.22) 0%, transparent 60%),
+    radial-gradient(circle at 85% 85%, rgba(6, 182, 212, 0.18) 0%, transparent 60%),
+    radial-gradient(circle at 50% 50%, rgba(244, 63, 94, 0.14) 0%, transparent 65%);
   pointer-events: none;
   z-index: 0;
-  animation: bgPulse 8s ease-in-out infinite alternate;
+  animation: bgPulse 12s ease-in-out infinite alternate;
 }
 
 @keyframes bgPulse {
-  0% { opacity: 0.6; }
-  100% { opacity: 1; }
+  0% { opacity: 0.6; transform: scale(1) translate(0, 0); }
+  50% { opacity: 0.8; transform: scale(1.03) translate(-1%, 1%); }
+  100% { opacity: 1.0; transform: scale(1.06) translate(1%, -1%); }
 }
 
 /* Particle canvas */
@@ -295,21 +296,12 @@ main {
 }
 
 .avatar-box img {
-  width: 72px;
-  height: 72px;
+  width: 80px;
+  height: 80px;
   border-radius: var(--radius-xl);
   object-fit: cover;
-  border: 2px solid var(--bg-card);
-}
-
-.avatar-ring {
-  position: absolute;
-  inset: -3px;
-  border-radius: calc(var(--radius-xl) + 3px);
-  background: var(--gradient-primary);
-  z-index: -1;
-  animation: ringRotate 4s linear infinite;
-  opacity: 0.7;
+  border: 2px solid var(--accent-primary);
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.35);
 }
 
 @keyframes ringRotate {
@@ -1707,17 +1699,18 @@ textarea.form-input {
 
 .floating-controls {
   position: fixed;
-  top: 20px;
-  right: 68px;
+  bottom: 134px;
+  right: 16px;
   display: flex;
+  flex-direction: column;
   gap: 10px;
   z-index: 101;
 }
 
 .control-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-md);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
   background: var(--bg-card);
   border: 1px solid var(--border-glass);
   color: var(--text-secondary);
@@ -1909,20 +1902,29 @@ textarea.form-input {
 @media (min-width: 580px) {
   :root {
     --fs-1: 30px;
+    --fs-xs: 12px;
+    --fs-sm: 14px;
+    --fs-base: 15px;
+    --fs-md: 18px;
+    --fs-lg: 20px;
+    --fs-xl: 22px;
+    --fs-2xl: 28px;
+    --fs-3xl: 36px;
+    --fs-4xl: 48px;
   }
 
   main { margin: 20px; }
 
   .sidebar {
-    max-height: 160px;
+    max-height: 185px;
     padding: 28px;
   }
 
-  .sidebar.active { max-height: 500px; }
+  .sidebar.active { max-height: 540px; }
 
   .sidebar-info { gap: 24px; }
 
-  .avatar-box img { width: 90px; height: 90px; }
+  .avatar-box img { width: 110px; height: 110px; }
 
   .info_more-btn span {
     display: block;
@@ -1957,6 +1959,18 @@ textarea.form-input {
 \*-----------------------------------*/
 
 @media (min-width: 1024px) {
+  :root {
+    --fs-xs: 13px;
+    --fs-sm: 15px;
+    --fs-base: 16px;
+    --fs-md: 20px;
+    --fs-lg: 22px;
+    --fs-xl: 26px;
+    --fs-2xl: 32px;
+    --fs-3xl: 44px;
+    --fs-4xl: 56px;
+  }
+
   main {
     display: grid;
     grid-template-columns: 300px 1fr;
@@ -1974,6 +1988,17 @@ textarea.form-input {
   }
 
   .sidebar.active { max-height: none; }
+
+  .sidebar-info {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .avatar-box img {
+    width: 130px;
+    height: 130px;
+  }
 
   .sidebar-info_more {
     opacity: 1;
@@ -2027,7 +2052,12 @@ textarea.form-input {
 
   .scroll-top { bottom: 32px; right: 32px; }
 
-  .floating-controls { top: 32px; right: 32px; }
+  .floating-controls {
+    bottom: 86px;
+    right: 32px;
+    top: auto;
+    flex-direction: column;
+  }
 }
 
 /*-----------------------------------*\
@@ -2035,10 +2065,27 @@ textarea.form-input {
 \*-----------------------------------*/
 
 @media (min-width: 1250px) {
+  :root {
+    --fs-xs: 14px;
+    --fs-sm: 16px;
+    --fs-base: 18px;
+    --fs-md: 22px;
+    --fs-lg: 24px;
+    --fs-xl: 30px;
+    --fs-2xl: 36px;
+    --fs-3xl: 48px;
+    --fs-4xl: 64px;
+  }
+
   main {
     grid-template-columns: 320px 1fr;
     max-width: 1200px;
     margin: 40px auto;
+  }
+
+  .avatar-box img {
+    width: 150px;
+    height: 150px;
   }
 
   .project-list { grid-template-columns: repeat(3, 1fr); }
