@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Krish Raj — Full Stack Developer & CS Student</title>
+  <meta name="description" content="Krish Raj is a Full Stack Developer and CS Student from VVIT, Purnea, Bihar. Building beautiful web apps and AI/ML solutions.">
+  <meta name="keywords" content="Krish Raj, Full Stack Developer, Web Developer, Portfolio, Bihar, VVIT, React, Python, AI">
+  <meta name="author" content="Krish Raj">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Krish Raj — Full Stack Developer">
+  <meta property="og:description" content="CS Student & Developer crafting beautiful web experiences.">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/images/logo.ico?v=2" type="image/x-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+
+<body>
+
+  <!-- ═══ LOADING SCREEN ═══ -->
+  <div id="loader">
+    <div class="loader-logo">KR</div>
+    <div class="loader-bar">
+      <div class="loader-fill"></div>
+    </div>
+  </div>
+
+  <!-- ═══ PARTICLE CANVAS ═══ -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- ═══ CUSTOM CURSOR ═══ -->
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+
+  <!-- ═══ SCROLL TO TOP ═══ -->
+  <button class="scroll-top" aria-label="Scroll to top">
+    <ion-icon name="arrow-up-outline"></ion-icon>
+  </button>
+
+  <!-- ═══ TOAST CONTAINER ═══ -->
+  <div class="toast-container"></div>
+
+  <!-- ═══ MAIN ═══ -->
+  <main>
+
+    <!-- ══════════════════════════════════
+         SIDEBAR
+    ══════════════════════════════════ -->
+    <aside class="sidebar" data-sidebar>
+
+      <div class="sidebar-info">
+
+        <figure class="avatar-box">
+          <div class="avatar-ring"></div>
+          <img src="/assets/images/my-avatar.png" alt="Krish Raj" width="80">
+          <div class="avatar-status" data-tooltip="Available for work"></div>
+        </figure>
+
+        <div class="info-content">
+          <h1 class="name" title="Krish Raj">Krish Raj</h1>
+          <p class="title">
+            <span class="title-dot"></span>
+            Full Stack Dev
+          </p>
+        </div>
+
+        <button class="info_more-btn" data-sidebar-btn aria-label="Show more info">
+          <ion-icon name="chevron-down"></ion-icon>
+          <span>Show Info</span>
+        </button>
+
+      </div>
+
+      <div class="sidebar-info_more">
+
+        <div class="separator"></div>
+
+        <ul class="contacts-list">
+
+          <li class="contact-item">
+            <div class="icon-box">
+              <ion-icon name="mail-outline"></ion-icon>
+            </div>
+            <div class="contact-info">
+              <p class="contact-title">Email</p>
+              <a href="mailto:connect.with.me925@gmail.com" class="contact-link" data-tooltip="Click to copy">
+                connect.with.me925@gmail.com
+              </a>
+            </div>
+          </li>
+
+          <li class="contact-item">
+            <div class="icon-box">
+              <ion-icon name="phone-portrait-outline"></ion-icon>
+            </div>
+            <div class="contact-info">
+              <p class="contact-title">Phone</p>
+              <a href="#" class="contact-link">+91 91••••••02</a>
+            </div>
+          </li>
+
+          <li class="contact-item">
+            <div class="icon-box">
+              <ion-icon name="calendar-outline"></ion-icon>
+            </div>
+            <div class="contact-info">
+              <p class="contact-title">Birthday</p>
+              <time datetime="2005-08-21">21 August, 2005</time>
+            </div>
+          </li>
+
+          <li class="contact-item">
+            <div class="icon-box">
+              <ion-icon name="location-outline"></ion-icon>
+            </div>
+            <div class="contact-info">
+              <p class="contact-title">Location</p>
+              <address>Purnea, Bihar, India</address>
+            </div>
+          </li>
+
+        </ul>
+
+        <div class="separator"></div>
+
+        <ul class="social-list">
+
+          <li class="social-item">
+            <a href="https://www.linkedin.com/in/krish-raj-4932a6322/" class="social-link" target="_blank" rel="noopener" data-tooltip="LinkedIn" aria-label="LinkedIn">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </a>
+          </li>
+
+          <li class="social-item">
+            <a href="https://github.com/KrishRaj-0821/" class="social-link" target="_blank" rel="noopener" data-tooltip="GitHub" aria-label="GitHub">
+              <ion-icon name="logo-github"></ion-icon>
+            </a>
+          </li>
+
+          <li class="social-item">
+            <a href="https://www.instagram.com/raj_kishu0821/" class="social-link" target="_blank" rel="noopener" data-tooltip="Instagram" aria-label="Instagram">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+
+    </aside>
+
+
+    <!-- ══════════════════════════════════
+         MAIN CONTENT
+    ══════════════════════════════════ -->
+    <div class="main-content">
+
+      <!-- ── NAVBAR ── -->
+      <nav class="navbar">
+        <ul class="navbar-list">
+
+          <li class="navbar-item">
+            <button class="navbar-link active" data-nav-link id="nav-about">About</button>
+          </li>
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link id="nav-resume">Resume</button>
+          </li>
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link id="nav-portfolio">Projects</button>
+          </li>
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link id="nav-blog">Blog</button>
+          </li>
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link id="nav-contact">Contact</button>
+          </li>
+
+        </ul>
+      </nav>
+
+
+      <!-- ════════════════════════════════
+           ABOUT PAGE
+      ════════════════════════════════ -->
+      <article class="about active" data-page="about">
+
+        <header>
+          <h2 class="h2 article-title">
+            About <span class="gradient-animate">Me</span>
+          </h2>
+        </header>
+
+        <!-- Typing intro -->
+        <section class="about-text reveal">
+          <p>
+            Hey! I'm <strong style="color: var(--accent-secondary);">Krish Raj</strong> — a passionate
+            <span class="typed-text"></span><span class="cursor-blink"></span>
+            <br>
+            CS Student at VVIT, Purnea, Bihar. I love turning complex problems into elegant, intuitive experiences.
+          </p>
+          <p>
+            My mission is to build web products that are not just functional, but visually stunning and user-friendly.
+            I blend creativity with clean code to bring your vision to life.
+          </p>
+        </section>
+
+        <!-- Stats Row -->
+        <div class="stats-row reveal reveal-delay-1">
+          <div class="stat-card">
+            <span class="stat-number" data-count="10" data-suffix="+">0+</span>
+            <span class="stat-label">Projects Built</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" data-count="5" data-suffix="+">0+</span>
+            <span class="stat-label">Technologies</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" data-count="2" data-suffix="yr">0yr</span>
+            <span class="stat-label">Experience</span>
+          </div>
+        </div>
+
+        <!-- Services -->
+        <section class="service">
+
+          <h3 class="h3 service-title reveal">What I Do</h3>
+
+          <ul class="service-list">
+
+            <li class="service-item reveal reveal-delay-1">
+              <div class="service-icon-box">
+                <img src="/assets/images/icon-design.svg" alt="Web Design Icon" width="40">
+              </div>
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Web Design</h4>
+                <p class="service-item-text">
+                  Pixel-perfect, modern UI designs crafted with a keen eye for aesthetics and usability.
+                </p>
+              </div>
+            </li>
+
+            <li class="service-item reveal reveal-delay-2">
+              <div class="service-icon-box">
+                <img src="/assets/images/icon-dev.svg" alt="Web Development Icon" width="40">
+              </div>
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Web Development</h4>
+                <p class="service-item-text">
+                  Full-stack development from database to UI — responsive, fast, and scalable.
+                </p>
+              </div>
+            </li>
+
+            <li class="service-item reveal reveal-delay-3">
+              <div class="service-icon-box">
+                <img src="/assets/images/icon-programming.svg" alt="Programming Icon" width="40">
+              </div>
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Programming</h4>
+                <p class="service-item-text">
+                  Solving real-world problems with C, Python, and JavaScript — from beginner to advanced.
+                </p>
+              </div>
+            </li>
+
+          </ul>
+
+        </section>
+
+        <!-- Testimonials -->
+        <section class="testimonials reveal">
+          <h3 class="h3 testimonials-title">Testimonials</h3>
+          <div class="testimonials-text" data-testimonials-text>
+            <p>
+              Though I'm still building my professional network, my professors and classmates often commend
+              my creativity, dedication, and problem-solving skills. Always delivering beyond expectations.
+            </p>
+          </div>
+        </section>
+
+        <!-- Clients / Fresher Note -->
+        <section class="clients reveal">
+          <h3 class="h3 clients-title">Let's Collaborate</h3>
+          <p class="clients-text">
+            As a fresher, I'm focused on learning, building, and growing through real-world projects.
+            I'm eager to collaborate with clients who value creativity, innovation, and dedication.
+            <br><br>
+            Let's create something <strong style="background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">impactful</strong> together!
+          </p>
+        </section>
+
+      </article>
+
+
+      <!-- ════════════════════════════════
+           RESUME PAGE
+      ════════════════════════════════ -->
+      <article class="resume" data-page="resume">
+
+        <header>
+          <h2 class="h2 article-title">Resume</h2>
+        </header>
+
+        <!-- Education -->
+        <section class="timeline">
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="book-outline"></ion-icon>
+            </div>
+            <h3 class="h3">Education</h3>
+          </div>
+
+          <ol class="timeline-list">
+
+            <li class="timeline-item reveal">
+              <h4 class="h4 timeline-item-title">Vidya Vihar Institute of Technology</h4>
+              <span>2024 — 2028</span>
+              <p class="timeline-text">
+                Pursuing B.Tech in Computer Science & Engineering. Building a strong foundation in algorithms, 
+                software development, AI/ML, and modern web technologies.
+              </p>
+            </li>
+
+            <li class="timeline-item reveal reveal-delay-1">
+              <h4 class="h4 timeline-item-title">M.L. Arya College, Kasba, Purnea</h4>
+              <span>2022 — 2024</span>
+              <p class="timeline-text">
+                Completed Intermediate (12th Grade) in Science stream — establishing the foundation for engineering studies.
+              </p>
+            </li>
+
+            <li class="timeline-item reveal reveal-delay-2">
+              <h4 class="h4 timeline-item-title">Boys High School, Kasba, Purnea</h4>
+              <span>2020 — 2022</span>
+              <p class="timeline-text">
+                Completed High School (10th Grade) — built early interest in computers and mathematics.
+              </p>
+            </li>
+
+          </ol>
+        </section>
+
+        <!-- Experience -->
+        <section class="timeline">
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="briefcase-outline"></ion-icon>
+            </div>
+            <h3 class="h3">Experience</h3>
+          </div>
+
+          <ol class="timeline-list">
+
+            <li class="timeline-item reveal">
+              <h4 class="h4 timeline-item-title">Independent Developer | Self-Learning Phase</h4>
+              <span>2024 — Present</span>
+              <p class="timeline-text">
+                Developed several beginner and intermediate-level projects using HTML, CSS, JavaScript, PHP, and Python.
+                Gained hands-on experience in responsive design, database integration, and building functional web apps.
+                Continuously building a strong foundation before stepping into professional roles.
+              </p>
+            </li>
+
+          </ol>
+        </section>
+
+        <!-- Skills -->
+        <section class="skill">
+          <h3 class="h3 skills-title">My Skills</h3>
+
+          <ul class="skills-list content-card">
+
+            <li class="skills-item reveal">
+              <div class="title-wrapper">
+                <h5 class="h5">Web Design & UI/UX</h5>
+                <data value="82">82%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" data-width="82%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item reveal reveal-delay-1">
+              <div class="title-wrapper">
+                <h5 class="h5">JavaScript / HTML / CSS</h5>
+                <data value="78">78%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" data-width="78%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item reveal reveal-delay-2">
+              <div class="title-wrapper">
+                <h5 class="h5">Python & Backend</h5>
+                <data value="70">70%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" data-width="70%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item reveal reveal-delay-3">
+              <div class="title-wrapper">
+                <h5 class="h5">Graphic Design</h5>
+                <data value="55">55%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" data-width="55%"></div>
+              </div>
+            </li>
+
+            <li class="skills-item reveal reveal-delay-4">
+              <div class="title-wrapper">
+                <h5 class="h5">AI / ML Fundamentals</h5>
+                <data value="50">50%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" data-width="50%"></div>
+              </div>
+            </li>
+
+          </ul>
+        </section>
+
+      </article>
+
+
+
+      <!-- ════════════════════════════════
+           PROJECTS PAGE
+      ════════════════════════════════ -->
+      <article class="portfolio" data-page="projects">
+
+        <header>
+          <h2 class="h2 article-title">
+            My <span class="gradient-animate">Projects</span>
+          </h2>
+        </header>
+
+        <!-- GitHub CTA -->
+        <div class="github-cta reveal">
+          <ion-icon name="logo-github"></ion-icon>
+          <p>All my projects are open-source. Check out my
+            <a href="https://github.com/KrishRaj-0821/" target="_blank" rel="noopener" class="github-cta-link">GitHub profile</a>
+            for the full list!
+          </p>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="gh-project-grid">
+
+          <!-- Project 1: SK General Store -->
+          <article class="gh-card reveal reveal-delay-1">
+            <div class="gh-card-header" style="--card-color: #7c3aed;">
+              <div class="gh-card-icon">
+                <ion-icon name="storefront-outline"></ion-icon>
+              </div>
+              <div class="gh-card-meta">
+                <span class="gh-card-badge">
+                  <ion-icon name="star-outline"></ion-icon> Featured
+                </span>
+              </div>
+            </div>
+
+            <div class="gh-card-body">
+              <h3 class="gh-card-title">S.K. General Store</h3>
+              <p class="gh-card-desc">
+                A dynamic e-commerce web app for a local general store. Features AI bill scanner,
+                admin panel, product catalog, cart, OTP auth, and real-time order tracking.
+              </p>
+
+              <div class="gh-card-tags">
+                <span class="gh-tag">React</span>
+                <span class="gh-tag">Node.js</span>
+                <span class="gh-tag">AI/OCR</span>
+                <span class="gh-tag">Firebase</span>
+              </div>
+            </div>
+
+            <div class="gh-card-footer">
+              <a
+                href="https://github.com/KrishRaj-0821/sk-general-store"
+                target="_blank"
+                rel="noopener"
+                class="gh-btn gh-btn-primary"
+                id="btn-sk-store-github"
+              >
+                <ion-icon name="logo-github"></ion-icon>
+                View Code
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 2: Quick Notes Tracker -->
+          <article class="gh-card reveal reveal-delay-2">
+            <div class="gh-card-header" style="--card-color: #06b6d4;">
+              <div class="gh-card-icon">
+                <ion-icon name="document-text-outline"></ion-icon>
+              </div>
+              <div class="gh-card-meta">
+                <span class="gh-card-badge" style="background: rgba(6,182,212,0.15); border-color: rgba(6,182,212,0.3); color: #06b6d4;">
+                  <ion-icon name="flash-outline"></ion-icon> Utility
+                </span>
+              </div>
+            </div>
+
+            <div class="gh-card-body">
+              <h3 class="gh-card-title">Quick Notes Tracker</h3>
+              <p class="gh-card-desc">
+                A fast and intuitive notes management app. Create, edit, organize, and track
+                your notes with a clean, distraction-free interface. Supports categories and search.
+              </p>
+
+              <div class="gh-card-tags">
+                <span class="gh-tag" style="color: #06b6d4; border-color: rgba(6,182,212,0.3); background: rgba(6,182,212,0.08);">JavaScript</span>
+                <span class="gh-tag" style="color: #06b6d4; border-color: rgba(6,182,212,0.3); background: rgba(6,182,212,0.08);">HTML/CSS</span>
+                <span class="gh-tag" style="color: #06b6d4; border-color: rgba(6,182,212,0.3); background: rgba(6,182,212,0.08);">LocalStorage</span>
+              </div>
+            </div>
+
+            <div class="gh-card-footer">
+              <a
+                href="https://github.com/KrishRaj-0821/Quick_Notes_Tacker"
+                target="_blank"
+                rel="noopener"
+                class="gh-btn"
+                style="background: rgba(6,182,212,0.1); border-color: rgba(6,182,212,0.3); color: #06b6d4;"
+                id="btn-quick-notes-github"
+              >
+                <ion-icon name="logo-github"></ion-icon>
+                View Code
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 3: GuruJi 2.0 -->
+          <article class="gh-card reveal reveal-delay-3">
+            <div class="gh-card-header" style="--card-color: #ec4899;">
+              <div class="gh-card-icon">
+                <ion-icon name="school-outline"></ion-icon>
+              </div>
+              <div class="gh-card-meta">
+                <span class="gh-card-badge" style="background: rgba(236,72,153,0.15); border-color: rgba(236,72,153,0.3); color: #ec4899;">
+                  <ion-icon name="sparkles-outline"></ion-icon> AI-Powered
+                </span>
+              </div>
+            </div>
+
+            <div class="gh-card-body">
+              <h3 class="gh-card-title">GuruJi 2.0</h3>
+              <p class="gh-card-desc">
+                An intelligent educational platform — version 2.0 of GuruJi. AI-assisted tutoring,
+                interactive quizzes, personalized learning paths, and student progress tracking.
+              </p>
+
+              <div class="gh-card-tags">
+                <span class="gh-tag" style="color: #ec4899; border-color: rgba(236,72,153,0.3); background: rgba(236,72,153,0.08);">Python</span>
+                <span class="gh-tag" style="color: #ec4899; border-color: rgba(236,72,153,0.3); background: rgba(236,72,153,0.08);">AI/ML</span>
+                <span class="gh-tag" style="color: #ec4899; border-color: rgba(236,72,153,0.3); background: rgba(236,72,153,0.08);">Web App</span>
+              </div>
+            </div>
+
+            <div class="gh-card-footer">
+              <a
+                href="https://github.com/KrishRaj-0821/GuruJiii2.o"
+                target="_blank"
+                rel="noopener"
+                class="gh-btn"
+                style="background: rgba(236,72,153,0.1); border-color: rgba(236,72,153,0.3); color: #ec4899;"
+                id="btn-guruji-github"
+              >
+                <ion-icon name="logo-github"></ion-icon>
+                View Code
+              </a>
+            </div>
+          </article>
+
+        </div><!-- /.gh-project-grid -->
+
+      </article>
+
+
+
+      <!-- ════════════════════════════════
+           BLOG PAGE
+      ════════════════════════════════ -->
+      <article class="blog" data-page="blog">
+
+        <header>
+          <h2 class="h2 article-title">Blog</h2>
+        </header>
+
+        <section class="blog-posts">
+          <div class="blog-coming-soon">
+            <span class="soon-icon">✍️</span>
+            <h3>Coming Soon</h3>
+            <p>
+              I'm working on some exciting blog posts about web development, AI/ML,
+              and my journey as a student developer. Stay tuned!
+            </p>
+          </div>
+        </section>
+
+      </article>
+
+
+      <!-- ════════════════════════════════
+           CONTACT PAGE
+      ════════════════════════════════ -->
+      <article class="contact" data-page="contact">
+
+        <header>
+          <h2 class="h2 article-title">Contact</h2>
+        </header>
+
+        <!-- Map -->
+        <section class="mapbox" data-mapbox>
+          <figure>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29584.032663086666!2d87.53618809999999!3d25.85378079999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eff7e13566fedf%3A0xe153c1c8ea86680f!2sKasba%2C%20Bihar%20854330!5e1!3m2!1sen!2sin!4v1759678978687!5m2!1sen!2sin"
+              width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade" title="Location Map">
+            </iframe>
+          </figure>
+        </section>
+
+        <!-- Contact Form -->
+        <section class="contact-form">
+
+          <h3 class="h3 form-title">Send a Message</h3>
+
+          <form class="form" action="https://formspree.io/f/xvgqbava" method="POST" data-form>
+
+            <div class="input-wrapper">
+              <input
+                type="text"
+                name="fullname"
+                class="form-input"
+                placeholder="Full name"
+                required
+                data-form-input
+                id="contact-name"
+              >
+              <input
+                type="email"
+                name="email"
+                class="form-input"
+                placeholder="Email address"
+                required
+                data-form-input
+                id="contact-email"
+              >
+            </div>
+
+            <textarea
+              name="message"
+              class="form-input"
+              placeholder="Your Message"
+              required
+              data-form-input
+              id="contact-message"
+            ></textarea>
+
+            <button class="form-btn" type="submit" disabled data-form-btn id="submit-btn">
+              <ion-icon name="paper-plane-outline"></ion-icon>
+              <span>Send Message</span>
+            </button>
+
+          </form>
+
+        </section>
+
+      </article>
+
+    </div><!-- /.main-content -->
+
+  </main>
+
+
+  <!-- ═══ IONICONS ═══ -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <!-- ═══ CUSTOM JS ═══ -->
+  <script src="/assets/js/script.js"></script>
+
+</body>
+
+</html>
