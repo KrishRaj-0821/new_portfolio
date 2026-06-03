@@ -305,11 +305,11 @@ main {
 .avatar-ring {
   position: absolute;
   inset: -3px;
-  border-radius: calc(var(--radius-xl) + 3px);
+  border-radius: calc(var(--radius-xl) + 1px);
   background: var(--gradient-primary);
   z-index: -1;
   animation: ringRotate 4s linear infinite;
-  opacity: 0.7;
+  opacity: 0.4;
 }
 
 @keyframes ringRotate {
