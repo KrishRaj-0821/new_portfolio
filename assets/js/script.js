@@ -638,6 +638,7 @@ if (terminalInput && terminalOutput) {
   - <span class="highlight">sound [on/off]</span> : Enable or disable audio clicks<br>
   - <span class="highlight">socials</span> : List social media links<br>
   - <span class="highlight">github</span> : Open GitHub profile in new tab<br>
+  - <span class="highlight">leetcode</span> : Open LeetCode profile in new tab<br>
   - <span class="highlight">clear</span> : Clear screen`;
           break;
 
@@ -682,12 +683,17 @@ if (terminalInput && terminalOutput) {
           responseLine.innerHTML = `Social Profiles:<br>
   - <span class="highlight">GitHub</span>: https://github.com/KrishRaj-0821/<br>
   - <span class="highlight">LinkedIn</span>: https://www.linkedin.com/in/krish-raj-4932a6322/<br>
-  - <span class="highlight">Instagram</span>: @raj_kishu0821`;
+  - <span class="highlight">LeetCode</span>: https://leetcode.com/u/raj_kishu0821/`;
           break;
 
         case 'github':
           window.open('https://github.com/KrishRaj-0821/', '_blank');
           responseLine.textContent = 'Opening GitHub in a new tab...';
+          break;
+
+        case 'leetcode':
+          window.open('https://leetcode.com/u/raj_kishu0821/', '_blank');
+          responseLine.textContent = 'Opening LeetCode in a new tab...';
           break;
 
         case 'clear':
