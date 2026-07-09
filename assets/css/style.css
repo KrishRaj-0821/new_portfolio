@@ -954,11 +954,55 @@ article.active {
 
 .skills-title { margin-bottom: 20px; }
 
-.skills-list {
-  background: var(--bg-glass);
-  border: 1px solid var(--border-glass);
-  border-radius: var(--radius-lg);
-  padding: 24px;
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.skills-category-card {
+  transition: transform var(--ease-normal), border-color var(--ease-normal), box-shadow var(--ease-normal);
+}
+
+.skills-category-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-primary);
+  box-shadow: var(--shadow-glow);
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 12px;
+}
+
+.category-icon-box {
+  background: rgba(139, 92, 246, 0.1);
+  color: var(--accent-secondary);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.category-icon-box ion-icon {
+  font-size: 18px;
+}
+
+.category-title {
+  font-size: var(--fs-md);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.skills-list-category {
+  list-style: none;
 }
 
 .skills-item { margin-bottom: 20px; }
@@ -1956,6 +2000,8 @@ textarea.form-input {
   .input-wrapper { grid-template-columns: 1fr 1fr; }
 
   .stats-row { grid-template-columns: repeat(3, 1fr); }
+
+  .skills-grid { grid-template-columns: 1fr 1fr; }
 }
 
 /*-----------------------------------*\
@@ -2053,6 +2099,8 @@ textarea.form-input {
   .service-list { grid-template-columns: 1fr 1fr; }
 
   .project-list { grid-template-columns: 1fr 1fr; }
+
+  .skills-grid { grid-template-columns: repeat(3, 1fr); }
 
   .scroll-top { bottom: 32px; right: 32px; }
 
