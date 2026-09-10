@@ -4,7 +4,7 @@ import { educationData, experienceData, personalInfo } from '../data/portfolioDa
 
 export default function CredentialsSection() {
   return (
-    <section className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-16 md:py-24 border-t border-white/[0.08]">
+    <section id="credentials-section" className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-16 md:py-24 border-t border-white/[0.08]">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-end mb-12">
         <div className="md:col-span-7">
           <h2 className="text-4xl sm:text-5xl font-bold font-heading text-white tracking-tight">
@@ -49,7 +49,7 @@ export default function CredentialsSection() {
                     {item.period}
                   </span>
                   <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-mono font-bold text-emerald-400">
-                    Score: {item.score}
+                    {item.score.includes('%') ? `Score: ${item.score}` : item.score}
                   </span>
                 </div>
 

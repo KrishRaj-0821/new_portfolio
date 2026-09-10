@@ -81,6 +81,15 @@ export default function LetsTalkFooter({ onOpenContact }) {
           </a>
           <span className="text-white/20">•</span>
           <a
+            href="https://www.linkedin.com/in/krish-raj-4932a6322/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-slate-300 hover:text-blue-400"
+          >
+            LinkedIn
+          </a>
+          <span className="text-white/20">•</span>
+          <a
             href="https://leetcode.com/u/raj_kishu0821/"
             target="_blank"
             rel="noopener noreferrer"

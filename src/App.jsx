@@ -72,6 +72,10 @@ export default function App() {
           setIsTerminalOpen(false);
           if (tab === 'projects') {
             document.getElementById('impressive-works')?.scrollIntoView({ behavior: 'smooth' });
+          } else if (tab === 'skills') {
+            document.getElementById('skills-section')?.scrollIntoView({ behavior: 'smooth' });
+          } else if (tab === 'resume' || tab === 'about') {
+            document.getElementById('credentials-section')?.scrollIntoView({ behavior: 'smooth' });
           } else if (tab === 'contact') {
             setIsContactOpen(true);
           }

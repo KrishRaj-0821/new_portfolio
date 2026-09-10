@@ -3,7 +3,8 @@ export const personalInfo = {
   role: "Full Stack Developer | AI & System Enthusiast",
   roles: [
     "Full Stack Developer",
-    "React & Tailwind Specialist",
+    "Python & Django Builder",
+    "Tailwind CSS & Responsive UI Specialist",
     "GATE CS Aspirant",
     "AI & Automation Builder",
     "Problem Solver"
@@ -14,7 +15,7 @@ export const personalInfo = {
   location: "Purnea, Bihar, India",
   avatar: "/assets/images/my-avatar.png",
   resumeUrl: "https://drive.google.com/file/d/1XP8akgtA8KN4AhXYUS_WrXEHpNYSR7Xo/view?usp=drive_link",
-  bio: "Passionate Full Stack Developer and aspiring Computer Science engineer with a strong foundation in modern web architectures, intelligent automation, and scalable backend design. Actively preparing for GATE CS and exploring cutting-edge AI systems.",
+  bio: "Passionate Full Stack Developer and Computer Science undergraduate at VVIT Purnea with strong competencies in algorithms, modern web architectures, AI/ML, and scalable backend design. Actively preparing for GATE CS and engineering high-impact digital experiences.",
   stats: [
     { label: "Years Experience", value: "1+", suffix: "" },
     { label: "Major Projects", value: "6+", suffix: "" },
@@ -22,39 +23,39 @@ export const personalInfo = {
     { label: "Commitment", value: "100%", suffix: "" },
   ],
   socials: [
-    { name: "LinkedIn", url: "https://www.linkedin.com/in/krish-raj-9a7447291/", icon: "Linkedin" },
+    { name: "LinkedIn", url: "https://www.linkedin.com/in/krish-raj-4932a6322/", icon: "Linkedin" },
     { name: "GitHub", url: "https://github.com/KrishRaj-0821", icon: "Github" },
     { name: "LeetCode", url: "https://leetcode.com/u/raj_kishu0821/", icon: "Code2" },
     { name: "Email", url: "mailto:connect.with.me925@gmail.com", icon: "Mail" }
   ],
   whatIDo: [
     {
-      title: "Web Design & UI/UX",
-      desc: "Modern, sleek, and intuitive UI/UX built with Tailwind CSS, custom micro-interactions, responsive grids, and dark cyberpunk glassmorphism.",
+      title: "Frontend & Responsive UI",
+      desc: "Pixel-perfect, mobile-first responsive interfaces built with HTML5, CSS3, Tailwind CSS, Bootstrap, semantic DOM manipulation, and dynamic component states.",
       icon: "Palette",
       color: "from-purple-500/20 to-indigo-500/20",
       borderColor: "border-purple-500/30",
       accent: "text-purple-400"
     },
     {
-      title: "Full-Stack Development",
-      desc: "High-performance web applications using React, Next.js, Node.js, Express, and modern REST/GraphQL APIs with secure database schemas.",
+      title: "Backend & RESTful APIs",
+      desc: "Robust backend applications and clean RESTful APIs utilizing Python, Django, Node.js, and relational database management systems.",
       icon: "Code",
       color: "from-cyan-500/20 to-blue-500/20",
       borderColor: "border-cyan-500/30",
       accent: "text-cyan-400"
     },
     {
-      title: "System Architecture & Core CS",
-      desc: "Deep focus on Data Structures, Algorithms, Operating Systems, Relational DBMS, and Networking, backed by rigorous GATE CS study.",
+      title: "Core Computer Science & DSA",
+      desc: "Deep theoretical and practical foundation in Data Structures, Algorithms, OOP, Operating Systems, and DBMS, reinforced through competitive coding and GATE CS preparation.",
       icon: "Cpu",
       color: "from-amber-500/20 to-orange-500/20",
       borderColor: "border-amber-500/30",
       accent: "text-amber-400"
     },
     {
-      title: "AI & Workflow Automation",
-      desc: "Exploration and engineering of Agentic AI workflows, LLM integration, intelligent assistants, and autonomous civic/developer tooling.",
+      title: "AI, Automation & Tools",
+      desc: "Building intelligent assistants, dynamic study schedulers, browser extensions with Manifest V3, and exploring Agentic AI systems with modern deployment on Vercel and Netlify.",
       icon: "Bot",
       color: "from-emerald-500/20 to-teal-500/20",
       borderColor: "border-emerald-500/30",
@@ -65,15 +66,15 @@ export const personalInfo = {
 
 export const educationData = [
   {
-    degree: "B.Tech in Computer Science & Engineering",
-    institution: "Vidya Vihar Institute of Technology (VVIT)",
+    degree: "Bachelor of Technology in Computer Science & Engineering",
+    institution: "Vidya Vihar Institute of Technology (VVIT), Purnea, Bihar",
     period: "2024 — 2028",
-    score: "Pursuing (Semester 2)",
+    score: "Pursuing",
     scoreType: "Current Degree",
-    description: "Core CS curriculum covering Data Structures, Algorithms, Discrete Mathematics, OOP, and Computer Architecture."
+    description: "Building core competencies in algorithms, software engineering, AI/ML, and modern web architectures."
   },
   {
-    degree: "Senior Secondary (Class XII) - Science",
+    degree: "Intermediate (12th Grade) – Science Stream",
     institution: "M.L. Arya College, Kasba, Purnea",
     period: "2022 — 2024",
     score: "82.8%",
@@ -81,9 +82,9 @@ export const educationData = [
     description: "Focused on Physics, Chemistry, and Mathematics with high academic excellence and competitive foundations."
   },
   {
-    degree: "Secondary School (Class X)",
-    institution: "Boys High School, Kasba",
-    period: "2021 — 2022",
+    degree: "High School (10th Grade)",
+    institution: "Boys High School, Kasba, Purnea",
+    period: "2020 — 2022",
     score: "85.2%",
     scoreType: "Final Score",
     description: "Completed secondary education with distinction across science, mathematics, and computer basics."
@@ -93,11 +94,11 @@ export const educationData = [
 export const experienceData = [
   {
     role: "Web Developer Intern",
-    company: "SSS Patna",
-    period: "1 Month (2024)",
-    location: "Patna, Bihar (Hybrid)",
+    company: "Software Services & Solutions (SSS)",
+    period: "2025 (1 Month)",
+    location: "Patna, Bihar",
     badge: "Internship",
-    description: "Developed and maintained responsive web interfaces, integrated RESTful APIs, optimized asset loading, and collaborated on client portal features."
+    description: "Developed responsive user interfaces and optimized front-end assets using HTML5, CSS3, JavaScript, and Bootstrap for client web portals."
   },
   {
     role: "Independent Full Stack Developer",
@@ -105,7 +106,7 @@ export const experienceData = [
     period: "2023 — Present",
     location: "Remote",
     badge: "Self-Driven",
-    description: "Architected, built, and deployed modern end-to-end web applications including AAGAM (GovTech), DocSpot 2.0 (Healthcare), and VikasPath 247."
+    description: "Architected, built, and deployed modern end-to-end web applications and tools including AAGAM, DocSpot 2.0 (Django), VikasPath 247, and Quick Notes Tracker."
   }
 ];
 
@@ -113,77 +114,86 @@ export const academicFocusData = {
   gate: {
     title: "GATE CS Preparation",
     badge: "High Priority Focus",
-    description: "Structured academic preparation targeting the Graduate Aptitude Test in Engineering in Computer Science.",
+    description: "Actively preparing for GATE CS with strong grounding in algorithms, operating systems, and core computer science fundamentals.",
     topics: [
       "Data Structures & Algorithms (Advanced)",
-      "Computer Networks & Protocols",
       "Operating Systems & Concurrency",
-      "DBMS & Relational Query Optimization",
+      "Relational DBMS & Query Optimization",
+      "Computer Networks & Protocols",
       "Theory of Computation & Compiler Design"
     ]
   },
   interests: {
-    title: "Advanced Tech & Core Interests",
+    title: "Core Interests & Advanced Tech",
     badge: "Active Exploration",
-    description: "Hands-on exploration of contemporary technologies shaping the future of autonomous software engineering.",
+    description: "Hands-on exploration of contemporary technologies shaping the future of software engineering and intelligent autonomous systems.",
     topics: [
-      "Artificial Intelligence & Machine Learning",
+      "Artificial Intelligence & Machine Learning (AI/ML)",
       "Agentic AI & Autonomous Workflows",
-      "Intelligent Process Automation (IPA)",
-      "Distributed Systems & Microservices",
-      "Cloud Architecture & CI/CD Pipelines"
+      "Workflow & Process Automation",
+      "Full-Stack Web Development",
+      "System Architecture & Scalability"
     ]
   }
 };
 
 export const skillsData = [
   {
-    category: "Frontend Development",
-    icon: "Layout",
+    category: "Languages",
+    icon: "Code",
     skills: [
-      { name: "React.js / Next.js", level: 90 },
-      { name: "Tailwind CSS / Vanilla CSS", level: 95 },
-      { name: "JavaScript (ES6+) / TypeScript", level: 88 },
-      { name: "HTML5 / Responsive UI", level: 95 }
+      { name: "C++ (STL & DSA)", level: 90 },
+      { name: "C", level: 85 },
+      { name: "Python", level: 88 },
+      { name: "JavaScript (ES6+)", level: 90 }
     ]
   },
   {
-    category: "Backend & Database",
+    category: "Frontend Development",
+    icon: "Layout",
+    skills: [
+      { name: "HTML5 & CSS3", level: 95 },
+      { name: "Tailwind CSS", level: 95 },
+      { name: "Bootstrap", level: 88 },
+      { name: "Responsive UI & DOM Manipulation", level: 92 }
+    ]
+  },
+  {
+    category: "Backend & Frameworks",
     icon: "Database",
     skills: [
-      { name: "Node.js & Express.js", level: 85 },
-      { name: "RESTful APIs & Microservices", level: 85 },
-      { name: "MongoDB & Mongoose", level: 82 },
-      { name: "SQL / PostgreSQL / Supabase", level: 80 }
+      { name: "Django", level: 85 },
+      { name: "RESTful APIs", level: 88 },
+      { name: "Relational Database Management", level: 85 },
+      { name: "Python Backend Architecture", level: 86 }
     ]
   },
   {
     category: "Core Computer Science",
     icon: "Cpu",
     skills: [
-      { name: "Data Structures & Algorithms", level: 88 },
+      { name: "Data Structures & Algorithms (DSA)", level: 90 },
       { name: "Object Oriented Programming (OOP)", level: 90 },
-      { name: "Operating Systems & Concurrency", level: 80 },
-      { name: "DBMS & Schema Architecture", level: 82 }
+      { name: "Operating Systems", level: 85 },
+      { name: "DBMS & Relational Query Planning", level: 85 }
     ]
   },
   {
     category: "Tools & Deployment",
     icon: "Terminal",
     skills: [
-      { name: "Git & GitHub Version Control", level: 90 },
-      { name: "Vite / Webpack / Build Config", level: 88 },
-      { name: "Vercel / Netlify / Render Hosting", level: 85 },
-      { name: "Postman API Testing & Linux CLI", level: 85 }
+      { name: "Git & GitHub Version Control", level: 92 },
+      { name: "VS Code & Chrome DevTools", level: 92 },
+      { name: "Vercel & Netlify Hosting", level: 88 },
+      { name: "Chrome APIs (Manifest V3)", level: 85 }
     ]
   }
 ];
 
 export const projectCategories = [
   "All",
-  "AgriTech & Civic",
-  "Healthcare",
-  "E-Commerce",
+  "Full-Stack & Backend",
+  "Frontend & UI",
   "AI & Utilities"
 ];
 
@@ -191,85 +201,91 @@ export const projectsData = [
   {
     id: "aagam",
     title: "AAGAM — Smart Agricultural Advisory & Grievance AI Machine",
-    category: "AgriTech & Civic",
+    category: "Full-Stack & Backend",
     badge: "Featured ★",
     isFeatured: true,
-    tag: "GovTech / AgriTech",
+    tag: "Full-Stack Web App, Modern UI",
     image: "/assets/images/aagam.png",
-    description: "Innovative AI-driven agricultural governance platform built with React 18, Vite, and Tailwind CSS. Features real-time crop health advisory, grievance resolution workflows, and interactive farmer assistance.",
-    tech: ["React 18", "Vite", "Tailwind CSS", "AI Advisory", "GovTech"],
+    description: "Engineered a modern web platform featuring modular code structure, dynamic routing, and scalable state handling. Provides interactive crop advisory and civic grievance resolution workflows.",
+    tech: ["Full-Stack", "Modern UI", "Modular Architecture", "Dynamic Routing", "Scalable State"],
     github: "https://github.com/KrishRaj-0821/AAGAM.git",
     demo: "https://youtu.be/I3UYwM5ttdg",
-    hasVideo: true
+    hasVideo: true,
+    year: "2026"
   },
   {
     id: "docspot",
-    title: "DocSpot 2.0 — Telemedicine & Health Records Portal",
-    category: "Healthcare",
-    badge: "Full Stack",
+    title: "DocSpot 2.0 — Doctor Appointment Booking Platform",
+    category: "Full-Stack & Backend",
+    badge: "Django / Python",
     isFeatured: false,
-    tag: "Healthcare",
+    tag: "Healthcare Portal",
     image: "/assets/images/DocSpot.png",
-    description: "Comprehensive medical scheduling platform with real-time doctor availability, digital prescription vaults, patient history management, and secure consultation requests.",
-    tech: ["React.js", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
+    description: "Built a doctor appointment booking platform with dynamic slot scheduling and relational database management. Features real-time doctor availability and patient consultation records.",
+    tech: ["Django", "Python", "HTML/CSS", "JavaScript", "Relational DB"],
     github: "https://github.com/KrishRaj-0821",
     demo: null,
-    hasVideo: false
+    hasVideo: false,
+    year: "2026"
   },
   {
     id: "vikaspath",
-    title: "VikasPath 247 — Civic Grievance & Infra Tracking",
-    category: "AgriTech & Civic",
-    badge: "Civic Tech",
+    title: "VikasPath 247 — Roadmap & Progress Tracking Portal",
+    category: "Frontend & UI",
+    badge: "Responsive UI",
     isFeatured: false,
-    tag: "Civic Tech",
+    tag: "Civic & Roadmap",
     image: "/assets/images/project-vikaspath.png",
-    description: "Public infrastructure reporting and resolution platform enabling citizens to report road, sanitation, and electrical issues with live status tracking and admin dashboards.",
-    tech: ["JavaScript", "HTML5", "CSS3", "GeoAPI", "Node.js"],
+    description: "Designed a structured roadmap and progress-tracking portal with mobile-first responsive components, interactive progress trackers, and real-time civic updates.",
+    tech: ["HTML5", "Tailwind CSS", "JavaScript", "Responsive UI Design"],
     github: "https://github.com/KrishRaj-0821",
     demo: null,
-    hasVideo: false
+    hasVideo: false,
+    year: "2026"
   },
   {
     id: "store247",
-    title: "Store247 — Modern Digital Storefront & Inventory Hub",
-    category: "E-Commerce",
+    title: "Store247 (S.K. General Store) — Digital Inventory Catalog",
+    category: "Frontend & UI",
     badge: "E-Commerce",
     isFeatured: false,
-    tag: "E-Commerce",
+    tag: "E-Commerce Catalog",
     image: "/assets/images/project-store247.png",
-    description: "Ultra-fast digital commerce frontend with live cart calculations, category filtering, instant search, WhatsApp order forwarding, and persistent offline storage.",
-    tech: ["HTML5", "CSS3", "JavaScript", "LocalStorage API"],
+    description: "Created an e-commerce digital catalog showcasing retail inventory with fast client-side product filtering, live cart calculations, and responsive storefront components.",
+    tech: ["HTML5", "Tailwind CSS", "JavaScript", "Client-Side Filtering"],
     github: "https://github.com/KrishRaj-0821",
     demo: null,
-    hasVideo: false
+    hasVideo: false,
+    year: "2026"
   },
   {
     id: "gurujii",
-    title: "Guru Jii 2.0 — Intelligent AI Student Mentor",
+    title: "Guru Jii 2.0 — AI-Assisted Dynamic Study Planner",
     category: "AI & Utilities",
     badge: "AI Powered",
     isFeatured: false,
     tag: "AI & EdTech",
     image: "/assets/images/project-gurujii.png",
-    description: "Interactive conversational tutor application offering structured syllabus guidance, concept explainers, practice quiz generators, and personalized study planners.",
-    tech: ["React", "Tailwind CSS", "OpenAI / Gemini API", "Vite"],
+    description: "Implemented an AI-assisted study planner generating dynamic revision roadmaps based on completion metrics, structured syllabus guidance, and automated schedule adjustments.",
+    tech: ["Python", "Dynamic Scheduling", "Web APIs", "AI Planning"],
     github: "https://github.com/KrishRaj-0821",
     demo: null,
-    hasVideo: false
+    hasVideo: false,
+    year: "2026"
   },
   {
     id: "quicknotes",
-    title: "Quick Notes & Task Productivity Suite",
+    title: "Quick Notes Tracker — Browser Extension",
     category: "AI & Utilities",
-    badge: "Productivity",
+    badge: "Chrome Extension",
     isFeatured: false,
-    tag: "Productivity",
+    tag: "Browser Extension",
     image: "/assets/images/project-quicknotes.png",
-    description: "Minimalist, keyboard-first task manager and markdown note taking app with instant search, tags, offline persistence, and export capabilities.",
-    tech: ["JavaScript", "CSS3", "IndexedDB", "Productivity"],
+    description: "Developed a lightweight browser extension leveraging Chrome Storage for seamless in-tab note capture, rapid markdown formatting, and offline persistence.",
+    tech: ["JavaScript", "Chrome APIs (Manifest V3)", "Chrome Storage", "DOM Manipulation"],
     github: "https://github.com/KrishRaj-0821",
     demo: null,
-    hasVideo: false
+    hasVideo: false,
+    year: "2025"
   }
 ];

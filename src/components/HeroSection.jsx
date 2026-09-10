@@ -2,11 +2,11 @@ import React from 'react';
 import {
   ArrowDownRight,
   ArrowDown,
-  Home,
   Terminal,
   Box,
   FileText,
-  Maximize2
+  Maximize2,
+  Linkedin
 } from 'lucide-react';
 import { SiGithub, SiLeetcode } from 'react-icons/si';
 import { personalInfo } from '../data/portfolioData';
@@ -14,10 +14,6 @@ import { personalInfo } from '../data/portfolioData';
 export default function HeroSection({ onOpenTerminal, onOpenContact }) {
   const scrollToWorks = () => {
     document.getElementById('impressive-works')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -75,14 +71,6 @@ export default function HeroSection({ onOpenTerminal, onOpenContact }) {
         {/* Floating Dock at Bottom Center of Portrait */}
         <div className="absolute bottom-3 sm:bottom-6 left-1/2 -translate-x-1/2 z-30 max-w-[95%]">
           <div className="px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-2xl bg-black/85 backdrop-blur-2xl border border-white/20 shadow-2xl flex items-center gap-1.5 sm:gap-2.5 md:gap-3 overflow-x-auto no-scrollbar">
-            {/* Home */}
-            <button
-              onClick={scrollToTop}
-              title="Home / Top"
-              className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-white/[0.06] hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center transition-all shrink-0"
-            >
-              <Home className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-            </button>
 
             {/* Terminal */}
             <button
@@ -102,15 +90,6 @@ export default function HeroSection({ onOpenTerminal, onOpenContact }) {
               <Box className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
 
-            {/* Mini Profile Headshot */}
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden border-2 border-cyan-400/80 bg-dark-950 p-0.5 shadow-md shrink-0">
-              <img
-                src={personalInfo.avatar}
-                alt="Mini Avatar"
-                className="w-full h-full object-cover rounded-full grayscale"
-              />
-            </div>
-
             {/* CV / Resume */}
             <a
               href={personalInfo.resumeUrl}
@@ -120,6 +99,26 @@ export default function HeroSection({ onOpenTerminal, onOpenContact }) {
               className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-purple-600/30 hover:bg-purple-600 text-purple-300 hover:text-white flex items-center justify-center transition-all shrink-0"
             >
               <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            </a>
+
+            {/* Mini Profile Headshot */}
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden border-2 border-cyan-400/80 bg-dark-950 p-0.5 shadow-md shrink-0">
+              <img
+                src={personalInfo.avatar}
+                alt="Mini Avatar"
+                className="w-full h-full object-cover rounded-full grayscale"
+              />
+            </div>
+
+            {/* LinkedIn */}
+            <a
+              href="https://www.linkedin.com/in/krish-raj-4932a6322/"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="LinkedIn Profile"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-white/[0.06] hover:bg-blue-600/30 text-slate-300 hover:text-blue-400 flex items-center justify-center transition-all shrink-0"
+            >
+              <Linkedin className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </a>
 
             {/* GitHub */}

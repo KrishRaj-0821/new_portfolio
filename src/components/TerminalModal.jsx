@@ -56,11 +56,12 @@ export default function TerminalModal({ isOpen, onClose, onNavigate }) {
           type: 'response',
           text: `Available Commands:
   • help       - List available commands
-  • about      - View summary & switch to About tab
-  • resume     - Switch to Resume tab
-  • cv         - Download Krish's official Resume PDF
+  • about      - View summary & info
+  • resume/cv  - View/Download Krish's official Resume PDF
   • projects   - View portfolio projects slider
+  • skills     - View core technical stack
   • contact    - Get email & open contact section
+  • linkedin   - Open LinkedIn profile
   • github     - Open GitHub profile
   • leetcode   - Open LeetCode profile
   • socials    - View all social & professional links
@@ -80,7 +81,7 @@ export default function TerminalModal({ isOpen, onClose, onNavigate }) {
       case 'resume':
         newHistory.push({
           type: 'response',
-          text: `Navigating to Resume tab... You can also use 'cv' to download the PDF directly.`
+          text: `Navigating to Resume & Credentials... You can also use 'cv' to download the PDF directly.`
         });
         onNavigate('resume');
         break;
@@ -96,9 +97,22 @@ export default function TerminalModal({ isOpen, onClose, onNavigate }) {
       case 'projects':
         newHistory.push({
           type: 'response',
-          text: `Switching to interactive Projects Slider... Featuring AAGAM (GovTech/AgriTech)!`
+          text: `Switching to interactive Projects Slider... Featuring AAGAM, DocSpot 2.0 (Django), VikasPath 247, Store247, Guru Jii 2.0 & Quick Notes Tracker!`
         });
         onNavigate('projects');
+        break;
+
+      case 'skills':
+        newHistory.push({
+          type: 'response',
+          text: `Core Technical Stack:
+• Languages: C, C++, Python, JavaScript
+• Frontend: HTML5, CSS3, Tailwind CSS, Bootstrap, Responsive UI Design, DOM Manipulation
+• Backend & Frameworks: Django, RESTful APIs
+• Core CS: DSA (C++ 250+ LeetCode), OOP, Operating Systems, DBMS
+• Tools & Deployment: Git, GitHub, VS Code, Chrome DevTools, Vercel, Netlify`
+        });
+        onNavigate('skills');
         break;
 
       case 'contact':
@@ -107,6 +121,17 @@ export default function TerminalModal({ isOpen, onClose, onNavigate }) {
           text: `Email: ${personalInfo.email}\nPhone: ${personalInfo.phone}\nLocation: ${personalInfo.location}`
         });
         onNavigate('contact');
+        break;
+
+      case 'linkedin':
+        {
+          const linkedInUrl = personalInfo.socials.find(s => s.name.toLowerCase() === 'linkedin')?.url || 'https://www.linkedin.com/in/krish-raj-4932a6322/';
+          newHistory.push({
+            type: 'response',
+            text: `Opening ${linkedInUrl} ...`
+          });
+          window.open(linkedInUrl, '_blank');
+        }
         break;
 
       case 'github':
@@ -128,7 +153,7 @@ export default function TerminalModal({ isOpen, onClose, onNavigate }) {
       case 'socials':
         newHistory.push({
           type: 'response',
-          text: `• LinkedIn: https://www.linkedin.com/in/krish-raj-9a7447291/\n• GitHub: https://github.com/KrishRaj-0821\n• LeetCode: https://leetcode.com/u/raj_kishu0821/\n• Email: connect.with.me925@gmail.com`
+          text: personalInfo.socials.map(s => `• ${s.name}: ${s.url.startsWith('mailto:') ? s.url.replace('mailto:', '') : s.url}`).join('\n')
         });
         break;
 
