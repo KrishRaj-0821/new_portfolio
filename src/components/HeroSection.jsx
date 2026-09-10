@@ -70,7 +70,7 @@ export default function HeroSection({ onOpenTerminal, onOpenContact }) {
 
         {/* Floating Dock at Bottom Center of Portrait */}
         <div className="absolute bottom-3 sm:bottom-6 left-1/2 -translate-x-1/2 z-30 max-w-[95%]">
-          <div className="px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-2xl bg-black/85 backdrop-blur-2xl border border-white/20 shadow-2xl flex items-center gap-1.5 sm:gap-2.5 md:gap-3 overflow-x-auto no-scrollbar">
+          <div className="px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-2xl bg-black/20 backdrop-blur-sm border border-white/10 shadow-2xl flex items-center gap-1.5 sm:gap-2.5 md:gap-3 overflow-x-auto no-scrollbar">
 
             {/* Terminal */}
             <button
