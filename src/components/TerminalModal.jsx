@@ -55,19 +55,42 @@ export default function TerminalModal({ isOpen, onClose, onNavigate }) {
         newHistory.push({
           type: 'response',
           text: `Available Commands:
-  • help       - List available commands
-  • about      - View summary & info
-  • resume/cv  - View/Download Krish's official Resume PDF
-  • projects   - View portfolio projects slider
-  • skills     - View core technical stack
-  • contact    - Get email & open contact section
-  • linkedin   - Open LinkedIn profile
-  • github     - Open GitHub profile
-  • leetcode   - Open LeetCode profile
-  • socials    - View all social & professional links
-  • clear      - Clear terminal screen
-  • exit       - Close terminal window`
+  • help          - List available commands
+  • whoami        - Display identity & credentials
+  • about         - View summary & bio
+  • projects      - Discover portfolio artifacts
+  • skills        - View spatial technology constellation
+  • architecture  - Inspect system flow & dispatch telemetry
+  • resume / cv   - Open official Resume PDF
+  • contact       - Direct communication channels & handshake
+  • github        - Open GitHub repository profile
+  • linkedin      - Open LinkedIn profile
+  • leetcode      - Open LeetCode algorithmic profile
+  • socials       - View all verified links
+  • clear         - Clear terminal screen
+  • exit          - Close terminal window`
         });
+        break;
+
+      case 'whoami':
+        newHistory.push({
+          type: 'response',
+          text: `krish_raj (UID: 0821)
+ROLE: Full Stack Developer & AI / System Enthusiast
+LOCATION: Purnea, Bihar, India
+EDUCATION: B.Tech Computer Science & Engineering @ VVIT Purnea (2024-2028)
+SPECIALIZATION: Algorithmic Foundations (250+ LeetCode), Scalable Web, GATE CS Aspirant`
+        });
+        break;
+
+      case 'architecture':
+      case 'system':
+      case 'flow':
+        newHistory.push({
+          type: 'response',
+          text: `Navigating to System Architecture flow (USER -> FRONTEND -> API -> BACKEND -> DATABASE)...`
+        });
+        onNavigate('architecture');
         break;
 
       case 'about':

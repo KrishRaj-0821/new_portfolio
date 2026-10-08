@@ -17,7 +17,7 @@ export const personalInfo = {
   resumeUrl: "https://drive.google.com/file/d/1XP8akgtA8KN4AhXYUS_WrXEHpNYSR7Xo/view?usp=drive_link",
   bio: "Passionate Full Stack Developer and Computer Science undergraduate at VVIT Purnea with strong competencies in algorithms, modern web architectures, AI/ML, and scalable backend design. Actively preparing for GATE CS and engineering high-impact digital experiences.",
   stats: [
-    { label: "Years Experience", value: "1+", suffix: "" },
+    { label: "Years Experience", value: "2+", suffix: "" },
     { label: "Major Projects", value: "6+", suffix: "" },
     { label: "LeetCode Solved", value: "250+", suffix: "" },
     { label: "Commitment", value: "100%", suffix: "" },
