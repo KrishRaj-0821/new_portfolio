@@ -33,7 +33,7 @@ export default function HeroSection({ onOpenTerminal, onOpenContact }) {
       className="relative min-h-[90vh] lg:min-h-screen flex flex-col justify-between pt-6 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto z-10"
     >
       {/* Top Telemetry & Status Bar */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-2 pb-6 border-b border-white/[0.06] text-xs font-mono">
+      <div className="hidden sm:flex sm:flex-row items-center justify-between gap-3 pt-2 pb-6 border-b border-white/[0.06] text-xs font-mono">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -54,9 +54,9 @@ export default function HeroSection({ onOpenTerminal, onOpenContact }) {
       </div>
 
       {/* Main Digital Workspace Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center py-8 sm:py-12 my-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center py-4 sm:py-8 lg:py-12 my-auto">
         {/* Left Column: Developer Narrative & Typography Hierarchy */}
-        <div className="lg:col-span-7 space-y-6 sm:space-y-8">
+        <div className="order-2 lg:order-1 lg:col-span-7 space-y-6 sm:space-y-8">
           {/* Label / Stage indicator */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/10 text-xs font-mono text-purple-300">
             <Sparkles className="w-3.5 h-3.5 text-purple-400" />
@@ -159,7 +159,7 @@ export default function HeroSection({ onOpenTerminal, onOpenContact }) {
         </div>
 
         {/* Right Column: Architectural Portrait & Living System Artifact Frame */}
-        <div className="lg:col-span-5 relative flex justify-center lg:justify-end">
+        <div className="order-1 lg:order-2 lg:col-span-5 relative flex justify-center lg:justify-end">
           <div className="relative w-full max-w-[380px] sm:max-w-[420px] rounded-3xl p-3 sm:p-4 bg-gradient-to-b from-white/[0.08] to-white/[0.02] border border-white/15 shadow-2xl backdrop-blur-md overflow-hidden group">
             {/* Ambient Background Aura */}
             <div className="absolute -top-16 -right-16 w-48 h-48 bg-purple-600/20 rounded-full blur-3xl pointer-events-none" />
