@@ -26,7 +26,10 @@ import {
   SiGooglechrome,
   SiVercel,
   SiNetlify,
-  SiGithub
+  SiGithub,
+  SiRedis,
+  SiCelery,
+  SiRailway
 } from 'react-icons/si';
 
 export default function SkillsConstellation() {
@@ -70,6 +73,8 @@ export default function SkillsConstellation() {
         { name: 'RESTful APIs', level: '88%', icon: Layers, color: '#10b981' },
         { name: 'Relational DB Management', level: '85%', icon: Database, color: '#38bdf8' },
         { name: 'Python Backend Architecture', level: '86%', icon: SiPython, color: '#3776ab' },
+        { name: 'Redis', icon: SiRedis, color: '#dc382d' },
+        { name: 'Celery', icon: SiCelery, color: '#a9cc37' },
       ]
     },
     {
@@ -96,6 +101,7 @@ export default function SkillsConstellation() {
         { name: 'VS Code & Chrome DevTools', level: '92%', icon: SiGooglechrome, color: '#4285f4' },
         { name: 'Vercel & Netlify Hosting', level: '88%', icon: SiVercel, color: '#ffffff' },
         { name: 'Chrome APIs (Manifest V3)', level: '85%', icon: SiGooglechrome, color: '#00c7b7' },
+        { name: 'Railway', icon: SiRailway, color: '#a855f7' },
       ]
     },
     {
@@ -238,9 +244,15 @@ export default function SkillsConstellation() {
                           />
                           <span className="text-slate-200 truncate">{skill.name}</span>
                         </div>
-                        <span className="text-slate-400 font-semibold shrink-0">
-                          {skill.level}
-                        </span>
+                        {skill.level ? (
+                          <span className="text-slate-400 font-semibold shrink-0">
+                            {skill.level}
+                          </span>
+                        ) : (
+                          <span className="text-emerald-400/90 text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 shrink-0">
+                            Active Stack
+                          </span>
+                        )}
                       </div>
                     );
                   })}

@@ -66,8 +66,8 @@ export default function ProjectModal({ project, isOpen, onClose }) {
               rel="noopener noreferrer"
               className="absolute bottom-4 right-4 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold flex items-center gap-2 shadow-xl hover:scale-105 transition-all"
             >
-              <Play className="w-3.5 h-3.5 fill-current" />
-              <span>Watch Video Demo</span>
+              {project.hasVideo ? <Play className="w-3.5 h-3.5 fill-current" /> : <ExternalLink className="w-3.5 h-3.5" />}
+              <span>{project.hasVideo ? 'Watch Video Demo' : 'Launch Live App'}</span>
             </a>
           )}
         </div>
@@ -124,7 +124,7 @@ export default function ProjectModal({ project, isOpen, onClose }) {
                 className="px-4 py-2.5 rounded-xl bg-purple-600/30 hover:bg-purple-600 border border-purple-500/30 text-purple-200 hover:text-white font-mono text-xs flex items-center gap-2 transition-all"
               >
                 <ExternalLink className="w-4 h-4" />
-                <span>Open Demonstration</span>
+                <span>{project.hasVideo ? 'Open Video Demo' : 'Launch Live Application'}</span>
               </a>
             )}
           </div>

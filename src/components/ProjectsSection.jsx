@@ -5,7 +5,8 @@ import {
   Play,
   Layers,
   Sparkles,
-  Maximize2
+  Maximize2,
+  ExternalLink
 } from 'lucide-react';
 import { projectsData, projectCategories } from '../data/portfolioData';
 import ProjectModal from './ProjectModal';
@@ -21,6 +22,11 @@ export default function ProjectsSection() {
   // Subject-specific atmosphere styling
   const getAtmosphereMeta = (id) => {
     switch (id) {
+      case 'tribal-scholar':
+        return {
+          themeText: 'Sovereign GovTech & AI Document Intelligence Atmosphere',
+          accent: 'border-amber-500/30 text-amber-400 bg-amber-500/10'
+        };
       case 'aagam':
         return {
           themeText: 'Agricultural Intelligence & Advisory Atmosphere',
@@ -199,8 +205,8 @@ export default function ProjectsSection() {
                     rel="noopener noreferrer"
                     className="flex-1 py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold flex items-center justify-center gap-1.5 shadow-md shadow-blue-600/30 transition-all hover:scale-[1.02]"
                   >
-                    <Play className="w-3 h-3 fill-current" />
-                    <span>Demo</span>
+                    {project.hasVideo ? <Play className="w-3 h-3 fill-current" /> : <ExternalLink className="w-3.5 h-3.5" />}
+                    <span>{project.hasVideo ? 'Demo' : 'Live App'}</span>
                   </a>
                 )}
 

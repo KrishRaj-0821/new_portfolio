@@ -120,7 +120,7 @@ SPECIALIZATION: Algorithmic Foundations (250+ LeetCode), Scalable Web, GATE CS A
       case 'projects':
         newHistory.push({
           type: 'response',
-          text: `Switching to interactive Projects Slider... Featuring AAGAM, DocSpot 2.0 (Django), VikasPath 247, Store247, Guru Jii 2.0 & Quick Notes Tracker!`
+          text: `Switching to interactive Projects Slider... Featuring Tribal Scholar (MoTA GovTech), AAGAM, DocSpot 2.0 (Django), VikasPath 247, Store247, Guru Jii 2.0 & Quick Notes Tracker!`
         });
         onNavigate('projects');
         break;
@@ -131,9 +131,9 @@ SPECIALIZATION: Algorithmic Foundations (250+ LeetCode), Scalable Web, GATE CS A
           text: `Core Technical Stack:
 • Languages: C, C++, Python, JavaScript
 • Frontend: HTML5, CSS3, Tailwind CSS, Bootstrap, Responsive UI Design, DOM Manipulation
-• Backend & Frameworks: Django, RESTful APIs
+• Backend & Frameworks: Django, RESTful APIs, Redis, Celery
 • Core CS: DSA (C++ 250+ LeetCode), OOP, Operating Systems, DBMS
-• Tools & Deployment: Git, GitHub, VS Code, Chrome DevTools, Vercel, Netlify`
+• Tools & Deployment: Git, GitHub, VS Code, Chrome DevTools, Vercel, Netlify, Railway`
         });
         onNavigate('skills');
         break;

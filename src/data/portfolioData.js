@@ -18,7 +18,7 @@ export const personalInfo = {
   bio: "Passionate Full Stack Developer and Computer Science undergraduate at VVIT Purnea with strong competencies in algorithms, modern web architectures, AI/ML, and scalable backend design. Actively preparing for GATE CS and engineering high-impact digital experiences.",
   stats: [
     { label: "Years Experience", value: "2+", suffix: "" },
-    { label: "Major Projects", value: "6+", suffix: "" },
+    { label: "Major Projects", value: "7+", suffix: "" },
     { label: "LeetCode Solved", value: "250+", suffix: "" },
     { label: "Commitment", value: "100%", suffix: "" },
   ],
@@ -106,7 +106,7 @@ export const experienceData = [
     period: "2023 — Present",
     location: "Remote",
     badge: "Self-Driven",
-    description: "Architected, built, and deployed modern end-to-end web applications and tools including AAGAM, DocSpot 2.0 (Django), VikasPath 247, and Quick Notes Tracker."
+    description: "Architected, built, and deployed modern end-to-end web applications and systems including Tribal Scholar (MoTA GovTech), AAGAM, DocSpot 2.0 (Django), VikasPath 247, and Quick Notes Tracker."
   }
 ];
 
@@ -165,7 +165,9 @@ export const skillsData = [
       { name: "Django", level: 85 },
       { name: "RESTful APIs", level: 88 },
       { name: "Relational Database Management", level: 85 },
-      { name: "Python Backend Architecture", level: 86 }
+      { name: "Python Backend Architecture", level: 86 },
+      { name: "Redis" },
+      { name: "Celery" }
     ]
   },
   {
@@ -185,7 +187,8 @@ export const skillsData = [
       { name: "Git & GitHub Version Control", level: 92 },
       { name: "VS Code & Chrome DevTools", level: 92 },
       { name: "Vercel & Netlify Hosting", level: 88 },
-      { name: "Chrome APIs (Manifest V3)", level: 85 }
+      { name: "Chrome APIs (Manifest V3)", level: 85 },
+      { name: "Railway" }
     ]
   }
 ];
@@ -198,6 +201,21 @@ export const projectCategories = [
 ];
 
 export const projectsData = [
+  {
+    id: "tribal-scholar",
+    title: "Tribal Scholar — AI-Enabled National Scholarship & Fellowship Ecosystem",
+    category: "Full-Stack & Backend",
+    badge: "Featured ★ MoTA",
+    isFeatured: true,
+    tag: "GovTech, AI OCR, Full-Stack",
+    image: "/assets/images/project-tribalscholar.png",
+    description: "Sovereign AI-assisted scholarship governance ecosystem built for the Ministry of Tribal Affairs (MoTA), Government of India (SIH PS 26239). Serves 10.4+ crore ST citizens with bilingual AI OCR (Devanagari/English), deterministic statutory rule evaluation, ClamAV document security vault, human-in-the-loop district scrutiny workbench, and real-time telecom SMS updates.",
+    tech: ["React 18", "TypeScript", "Django 5.1", "PostgreSQL 16", "Redis", "Celery", "AI OCR", "Docker", "Railway"],
+    github: "https://github.com/KrishRaj-0821/tribal_scholar",
+    demo: "https://tribalscholar.up.railway.app/",
+    hasVideo: false,
+    year: "2026"
+  },
   {
     id: "aagam",
     title: "AAGAM — Smart Agricultural Advisory & Grievance AI Machine",
