@@ -52,9 +52,12 @@ export default function ProjectModal({ project, isOpen, onClose }) {
           <img
             src={project.image}
             alt={project.title}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover object-top"
             onError={(e) => {
-              e.target.src = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=900&auto=format&fit=crop&q=80";
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='500' viewBox='0 0 900 500'%3E%3Crect width='900' height='500' fill='%23090a12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23a78bfa' font-family='monospace' font-size='16'%3E%5B ARTIFACT PREVIEW %5D%3C/text%3E%3C/svg%3E";
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-dark-950/90 via-transparent to-transparent pointer-events-none" />

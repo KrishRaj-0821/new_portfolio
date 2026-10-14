@@ -1,6 +1,7 @@
 import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { visibilityManager } from '../../utils/performance';
 
 /**
  * EnvironmentParticles:
@@ -8,14 +9,15 @@ import * as THREE from 'three';
  * - Distant subtle grid plane & atmospheric particles (Background)
  * - Flowing data points & floating system nodes (Midground)
  * - Floating technical geometric tokens (Foreground)
+ * Adapts particle counts for low-power and mobile devices.
  */
-export default function EnvironmentParticles({ scrollProgress = 0, pointer = { x: 0, y: 0 } }) {
+export default function EnvironmentParticles({ pointerRef, particleTier = 'high', prefersReducedMotion = false }) {
   const bgPointsRef = useRef();
   const midPointsRef = useRef();
   const tokensGroupRef = useRef();
 
-  // Background particle cloud (subtle, slow drift)
-  const bgCount = 450;
+  // Background particle cloud: 450 desktop / 180 mobile
+  const bgCount = particleTier === 'low' ? 180 : 450;
   const [bgPositions, bgColors] = useMemo(() => {
     const pos = new Float32Array(bgCount * 3);
     const col = new Float32Array(bgCount * 3);
@@ -40,8 +42,8 @@ export default function EnvironmentParticles({ scrollProgress = 0, pointer = { x
     return [pos, col];
   }, [bgCount]);
 
-  // Midground data particles (higher density along scroll pathway)
-  const midCount = 200;
+  // Midground data particles: 200 desktop / 80 mobile
+  const midCount = particleTier === 'low' ? 80 : 200;
   const [midPositions] = useMemo(() => {
     const pos = new Float32Array(midCount * 3);
     for (let i = 0; i < midCount; i++) {
@@ -52,9 +54,10 @@ export default function EnvironmentParticles({ scrollProgress = 0, pointer = { x
     return [pos];
   }, [midCount]);
 
-  // Micro technical tokens (geometric crosses, nodes)
+  // Micro technical tokens: 18 desktop / 8 mobile
+  const tokenCount = particleTier === 'low' ? 8 : 18;
   const technicalTokens = useMemo(() => {
-    return Array.from({ length: 18 }, (_, i) => ({
+    return Array.from({ length: tokenCount }, (_, i) => ({
       pos: [
         (Math.random() - 0.5) * 14,
         (Math.random() - 0.5) * 36 - 10,
@@ -65,10 +68,12 @@ export default function EnvironmentParticles({ scrollProgress = 0, pointer = { x
       size: 0.08 + Math.random() * 0.08,
       type: i % 3 === 0 ? 'box' : i % 3 === 1 ? 'tetra' : 'ring'
     }));
-  }, []);
+  }, [tokenCount]);
 
   useFrame((state) => {
+    if (!visibilityManager.isVisible || prefersReducedMotion) return;
     const t = state.clock.getElapsedTime();
+    const pointer = pointerRef?.current || { x: 0, y: 0 };
 
     if (bgPointsRef.current) {
       bgPointsRef.current.rotation.y = t * 0.015 + pointer.x * 0.05;

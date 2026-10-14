@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo, Suspense } from 'react';
 import {
   ArrowUpRight,
   Github,
@@ -11,17 +11,22 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { projectsData, projectCategories } from '../data/portfolioData';
-import ProjectModal from './ProjectModal';
+
+const ProjectModal = React.lazy(() => import('./ProjectModal'));
 
 export default function ProjectsSection() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [activeModalProject, setActiveModalProject] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const sliderRef = useRef(null);
+  const scrollTickingRef = useRef(false);
+  const cardWidthRef = useRef(0);
 
-  const filtered = selectedCategory === 'All'
-    ? projectsData
-    : projectsData.filter((p) => p.category === selectedCategory);
+  const filtered = useMemo(() => {
+    return selectedCategory === 'All'
+      ? projectsData
+      : projectsData.filter((p) => p.category === selectedCategory);
+  }, [selectedCategory]);
 
   // Reset slider position on category change
   useEffect(() => {
@@ -31,25 +36,47 @@ export default function ProjectsSection() {
     }
   }, [selectedCategory]);
 
-  // Track active slide index on scroll
-  const handleSliderScroll = useCallback(() => {
+  // Cache card width on resize to prevent repeated layout reflows
+  const updateCardWidth = useCallback(() => {
     if (!sliderRef.current) return;
-    const container = sliderRef.current;
-    const card = container.querySelector('.project-slide-card');
-    if (!card) return;
-    const cardWidth = card.offsetWidth;
-    const gap = 24;
-    const scrollPos = container.scrollLeft;
-    const newIdx = Math.round(scrollPos / (cardWidth + gap));
-    setCurrentIndex(Math.min(Math.max(0, newIdx), filtered.length - 1));
+    const card = sliderRef.current.querySelector('.project-slide-card');
+    if (card) {
+      cardWidthRef.current = card.offsetWidth;
+    }
+  }, []);
+
+  useEffect(() => {
+    updateCardWidth();
+    window.addEventListener('resize', updateCardWidth, { passive: true });
+    return () => window.removeEventListener('resize', updateCardWidth);
+  }, [updateCardWidth]);
+
+  // Track active slide index on scroll with requestAnimationFrame throttling
+  const handleSliderScroll = useCallback(() => {
+    if (scrollTickingRef.current) return;
+    scrollTickingRef.current = true;
+
+    window.requestAnimationFrame(() => {
+      if (!sliderRef.current) {
+        scrollTickingRef.current = false;
+        return;
+      }
+      const container = sliderRef.current;
+      const cardWidth = cardWidthRef.current || (container.querySelector('.project-slide-card')?.offsetWidth || 380);
+      cardWidthRef.current = cardWidth;
+      const gap = 24;
+      const scrollPos = container.scrollLeft;
+      const newIdx = Math.round(scrollPos / (cardWidth + gap));
+      const clamped = Math.min(Math.max(0, newIdx), filtered.length - 1);
+      setCurrentIndex((prev) => (prev !== clamped ? clamped : prev));
+      scrollTickingRef.current = false;
+    });
   }, [filtered.length]);
 
   const scrollToSlide = (index) => {
     if (!sliderRef.current) return;
     const container = sliderRef.current;
-    const card = container.querySelector('.project-slide-card');
-    if (!card) return;
-    const cardWidth = card.offsetWidth;
+    const cardWidth = cardWidthRef.current || (container.querySelector('.project-slide-card')?.offsetWidth || 380);
     const gap = 24;
     container.scrollTo({
       left: index * (cardWidth + gap),
@@ -207,9 +234,14 @@ export default function ProjectsSection() {
                     <img
                       src={project.image}
                       alt={project.title}
+                      width="410"
+                      height="208"
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 pointer-events-none"
                       onError={(e) => {
-                        e.target.src = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&auto=format&fit=crop&q=80";
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='360' viewBox='0 0 600 360'%3E%3Crect width='600' height='360' fill='%23090a12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23a78bfa' font-family='monospace' font-size='14'%3E%5B ARTIFACT PREVIEW %5D%3C/text%3E%3C/svg%3E";
                       }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent pointer-events-none" />
@@ -369,12 +401,16 @@ export default function ProjectsSection() {
         </div>
       </div>
 
-      {/* Artifact Deep Dive Inspector Modal */}
-      <ProjectModal
-        project={activeModalProject}
-        isOpen={!!activeModalProject}
-        onClose={() => setActiveModalProject(null)}
-      />
+      {/* Artifact Deep Dive Inspector Modal - Lazy Loaded */}
+      {activeModalProject && (
+        <Suspense fallback={null}>
+          <ProjectModal
+            project={activeModalProject}
+            isOpen={!!activeModalProject}
+            onClose={() => setActiveModalProject(null)}
+          />
+        </Suspense>
+      )}
     </section>
   );
 }

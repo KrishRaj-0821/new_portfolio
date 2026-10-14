@@ -34,116 +34,143 @@ import {
   SiRailway
 } from 'react-icons/si';
 
+const clusters = [
+  {
+    id: 'languages',
+    label: 'LANGUAGES',
+    icon: Code,
+    color: '#fbbf24',
+    tagline: 'Algorithmic foundations & systems programming',
+    skills: [
+      { name: 'C++ (STL & DSA)', level: '90%', icon: SiCplusplus, color: '#00599c' },
+      { name: 'C', level: '85%', icon: SiC, color: '#a8b9cc' },
+      { name: 'Python', level: '88%', icon: SiPython, color: '#3776ab' },
+      { name: 'JavaScript (ES6+)', level: '90%', icon: SiJavascript, color: '#f7df1e' },
+    ]
+  },
+  {
+    id: 'frontend',
+    label: 'FRONTEND',
+    icon: Layout,
+    color: '#38bdf8',
+    tagline: 'Responsive UI, semantic DOM & accessible architecture',
+    skills: [
+      { name: 'HTML5 & CSS3', level: '95%', icon: SiHtml5, color: '#e34f26' },
+      { name: 'Tailwind CSS', level: '95%', icon: SiTailwindcss, color: '#38bdf8' },
+      { name: 'Bootstrap', level: '88%', icon: SiBootstrap, color: '#7952b3' },
+      { name: 'Responsive UI & DOM Manipulation', level: '92%', icon: Layout, color: '#06b6d4' },
+    ]
+  },
+  {
+    id: 'backend',
+    label: 'BACKEND',
+    icon: Database,
+    color: '#10b981',
+    tagline: 'RESTful architectures, MVC models & Django services',
+    skills: [
+      { name: 'Django', level: '85%', icon: SiDjango, color: '#44b78b' },
+      { name: 'RESTful APIs', level: '88%', icon: Layers, color: '#10b981' },
+      { name: 'Relational DB Management', level: '85%', icon: Database, color: '#38bdf8' },
+      { name: 'Python Backend Architecture', level: '86%', icon: SiPython, color: '#3776ab' },
+      { name: 'Redis', icon: SiRedis, color: '#dc382d' },
+      { name: 'Celery', icon: SiCelery, color: '#a9cc37' },
+    ]
+  },
+  {
+    id: 'core-cs',
+    label: 'CORE CS (GATE)',
+    icon: Cpu,
+    color: '#a855f7',
+    tagline: 'Rigorous algorithmic complexity, OS, DBMS & networks',
+    skills: [
+      { name: 'Data Structures & Algorithms', level: '90%', icon: Cpu, color: '#c084fc' },
+      { name: 'Object Oriented Programming', level: '90%', icon: Code, color: '#a855f7' },
+      { name: 'Operating Systems & Concurrency', level: '85%', icon: Layers, color: '#818cf8' },
+      { name: 'DBMS & Relational Query Planning', level: '85%', icon: Database, color: '#60a5fa' },
+    ]
+  },
+  {
+    id: 'tools',
+    label: 'TOOLS & DEPLOY',
+    icon: Terminal,
+    color: '#f97316',
+    tagline: 'Modern tooling, version control & cloud environments',
+    skills: [
+      { name: 'Git & GitHub Version Control', level: '92%', icon: SiGit, color: '#f05032' },
+      { name: 'VS Code & Chrome DevTools', level: '92%', icon: SiGooglechrome, color: '#4285f4' },
+      { name: 'Vercel & Netlify Hosting', level: '88%', icon: SiVercel, color: '#ffffff' },
+      { name: 'Chrome APIs (Manifest V3)', level: '85%', icon: SiGooglechrome, color: '#00c7b7' },
+      { name: 'Railway', icon: SiRailway, color: '#a855f7' },
+    ]
+  },
+  {
+    id: 'ai-automation',
+    label: 'AI & AUTOMATION',
+    icon: Bot,
+    color: '#ec4899',
+    tagline: 'Autonomous workflows, dynamic scheduling & agents',
+    skills: [
+      { name: 'Dynamic Study Schedulers', level: '88%', icon: Bot, color: '#f43f5e' },
+      { name: 'Workflow Automation', level: '85%', icon: GitBranch, color: '#a855f7' },
+      { name: 'Agentic AI Exploration', level: '82%', icon: Sparkles, color: '#ec4899' },
+      { name: 'Agricultural AI Advisory', level: '86%', icon: Bot, color: '#10b981' },
+    ]
+  }
+];
+
 export default function SkillsConstellation() {
   const [activeCluster, setActiveCluster] = useState('all');
   const [currentIndex, setCurrentIndex] = useState(0);
   const sliderRef = useRef(null);
+  const scrollTickingRef = useRef(false);
+  const cardWidthRef = useRef(0);
 
-  const clusters = [
-    {
-      id: 'languages',
-      label: 'LANGUAGES',
-      icon: Code,
-      color: '#fbbf24',
-      tagline: 'Algorithmic foundations & systems programming',
-      skills: [
-        { name: 'C++ (STL & DSA)', level: '90%', icon: SiCplusplus, color: '#00599c' },
-        { name: 'C', level: '85%', icon: SiC, color: '#a8b9cc' },
-        { name: 'Python', level: '88%', icon: SiPython, color: '#3776ab' },
-        { name: 'JavaScript (ES6+)', level: '90%', icon: SiJavascript, color: '#f7df1e' },
-      ]
-    },
-    {
-      id: 'frontend',
-      label: 'FRONTEND',
-      icon: Layout,
-      color: '#38bdf8',
-      tagline: 'Responsive UI, semantic DOM & accessible architecture',
-      skills: [
-        { name: 'HTML5 & CSS3', level: '95%', icon: SiHtml5, color: '#e34f26' },
-        { name: 'Tailwind CSS', level: '95%', icon: SiTailwindcss, color: '#38bdf8' },
-        { name: 'Bootstrap', level: '88%', icon: SiBootstrap, color: '#7952b3' },
-        { name: 'Responsive UI & DOM Manipulation', level: '92%', icon: Layout, color: '#06b6d4' },
-      ]
-    },
-    {
-      id: 'backend',
-      label: 'BACKEND',
-      icon: Database,
-      color: '#10b981',
-      tagline: 'RESTful architectures, MVC models & Django services',
-      skills: [
-        { name: 'Django', level: '85%', icon: SiDjango, color: '#44b78b' },
-        { name: 'RESTful APIs', level: '88%', icon: Layers, color: '#10b981' },
-        { name: 'Relational DB Management', level: '85%', icon: Database, color: '#38bdf8' },
-        { name: 'Python Backend Architecture', level: '86%', icon: SiPython, color: '#3776ab' },
-        { name: 'Redis', icon: SiRedis, color: '#dc382d' },
-        { name: 'Celery', icon: SiCelery, color: '#a9cc37' },
-      ]
-    },
-    {
-      id: 'core-cs',
-      label: 'CORE CS (GATE)',
-      icon: Cpu,
-      color: '#a855f7',
-      tagline: 'Rigorous algorithmic complexity, OS, DBMS & networks',
-      skills: [
-        { name: 'Data Structures & Algorithms', level: '90%', icon: Cpu, color: '#c084fc' },
-        { name: 'Object Oriented Programming', level: '90%', icon: Code, color: '#a855f7' },
-        { name: 'Operating Systems & Concurrency', level: '85%', icon: Layers, color: '#818cf8' },
-        { name: 'DBMS & Relational Query Planning', level: '85%', icon: Database, color: '#60a5fa' },
-      ]
-    },
-    {
-      id: 'tools',
-      label: 'TOOLS & DEPLOY',
-      icon: Terminal,
-      color: '#f97316',
-      tagline: 'Modern tooling, version control & cloud environments',
-      skills: [
-        { name: 'Git & GitHub Version Control', level: '92%', icon: SiGit, color: '#f05032' },
-        { name: 'VS Code & Chrome DevTools', level: '92%', icon: SiGooglechrome, color: '#4285f4' },
-        { name: 'Vercel & Netlify Hosting', level: '88%', icon: SiVercel, color: '#ffffff' },
-        { name: 'Chrome APIs (Manifest V3)', level: '85%', icon: SiGooglechrome, color: '#00c7b7' },
-        { name: 'Railway', icon: SiRailway, color: '#a855f7' },
-      ]
-    },
-    {
-      id: 'ai-automation',
-      label: 'AI & AUTOMATION',
-      icon: Bot,
-      color: '#ec4899',
-      tagline: 'Autonomous workflows, dynamic scheduling & agents',
-      skills: [
-        { name: 'Dynamic Study Schedulers', level: '88%', icon: Bot, color: '#f43f5e' },
-        { name: 'Workflow Automation', level: '85%', icon: GitBranch, color: '#a855f7' },
-        { name: 'Agentic AI Exploration', level: '82%', icon: Sparkles, color: '#ec4899' },
-        { name: 'Agricultural AI Advisory', level: '86%', icon: Bot, color: '#10b981' },
-      ]
-    }
-  ];
-
-  // Track scroll position to update current active index
-  const handleSliderScroll = useCallback(() => {
+  // Cache card width on resize to prevent layout reflows during scrolling
+  const updateCardWidth = useCallback(() => {
     if (!sliderRef.current) return;
-    const container = sliderRef.current;
-    const card = container.querySelector('.skills-slide-card');
-    if (!card) return;
-    const cardWidth = card.offsetWidth;
-    const gap = 24;
-    const scrollPos = container.scrollLeft;
-    const newIdx = Math.round(scrollPos / (cardWidth + gap));
-    const clamped = Math.min(Math.max(0, newIdx), clusters.length - 1);
-    setCurrentIndex(clamped);
-    setActiveCluster(clusters[clamped]?.id || 'all');
-  }, [clusters]);
+    const card = sliderRef.current.querySelector('.skills-slide-card');
+    if (card) {
+      cardWidthRef.current = card.offsetWidth;
+    }
+  }, []);
+
+  useEffect(() => {
+    updateCardWidth();
+    window.addEventListener('resize', updateCardWidth, { passive: true });
+    return () => window.removeEventListener('resize', updateCardWidth);
+  }, [updateCardWidth]);
+
+  // Track scroll position to update current active index with RAF throttling
+  const handleSliderScroll = useCallback(() => {
+    if (scrollTickingRef.current) return;
+    scrollTickingRef.current = true;
+
+    window.requestAnimationFrame(() => {
+      if (!sliderRef.current) {
+        scrollTickingRef.current = false;
+        return;
+      }
+      const container = sliderRef.current;
+      const cardWidth = cardWidthRef.current || (container.querySelector('.skills-slide-card')?.offsetWidth || 380);
+      cardWidthRef.current = cardWidth;
+      const gap = 24;
+      const scrollPos = container.scrollLeft;
+      const newIdx = Math.round(scrollPos / (cardWidth + gap));
+      const clamped = Math.min(Math.max(0, newIdx), clusters.length - 1);
+      
+      setCurrentIndex((prev) => (prev !== clamped ? clamped : prev));
+      setActiveCluster((prev) => {
+        const nextId = clusters[clamped]?.id || 'all';
+        return prev !== nextId ? nextId : prev;
+      });
+      scrollTickingRef.current = false;
+    });
+  }, []);
 
   const scrollToCluster = (index, clusterId) => {
     if (!sliderRef.current) return;
     const container = sliderRef.current;
-    const card = container.querySelector('.skills-slide-card');
-    if (!card) return;
-    const cardWidth = card.offsetWidth;
+    const cardWidth = cardWidthRef.current || (container.querySelector('.skills-slide-card')?.offsetWidth || 380);
     const gap = 24;
     container.scrollTo({
       left: index * (cardWidth + gap),

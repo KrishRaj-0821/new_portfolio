@@ -182,9 +182,14 @@ export default function HeroSection({ onOpenTerminal, onOpenContact }) {
               <img
                 src={personalInfo.avatar}
                 alt={personalInfo.name}
+                width="380"
+                height="420"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
                 className="h-[92%] w-auto object-contain object-bottom filter grayscale contrast-110 brightness-95 group-hover:scale-[1.02] transition-transform duration-700 pointer-events-none drop-shadow-[0_20px_25px_rgba(0,0,0,0.6)]"
                 onError={(e) => {
-                  e.target.src = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=80";
+                  e.currentTarget.onerror = null;
                 }}
               />
 

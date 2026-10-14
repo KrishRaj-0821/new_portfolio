@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, Suspense, lazy } from 'react';
 import WorldCanvas from './components/3d/WorldCanvas';
 import CinematicLoader from './components/CinematicLoader';
 import HeaderNav from './components/HeaderNav';
@@ -9,37 +9,25 @@ import InterludeSection from './components/InterludeSection';
 import SystemArchitecture from './components/SystemArchitecture';
 import AboutArchiveSection from './components/AboutArchiveSection';
 import ContactConvergence from './components/ContactConvergence';
-import ContactModal from './components/ContactModal';
-import TerminalModal from './components/TerminalModal';
 import ScrollRocket from './components/ScrollRocket';
+import { startScrollCoordinator } from './utils/useScrollProgress';
+
+// Lazy-load modals so they do not bloat initial bundle
+const ContactModal = lazy(() => import('./components/ContactModal'));
+const TerminalModal = lazy(() => import('./components/TerminalModal'));
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
 
-  // Monitor scroll progression [0..1] with requestAnimationFrame
+  // Initialize shared high-performance scroll coordinator (runs once, zero re-renders on App)
   useEffect(() => {
-    let ticking = false;
+    startScrollCoordinator();
+  }, []);
 
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-          if (totalHeight > 0) {
-            const current = Math.min(1, Math.max(0, window.scrollY / totalHeight));
-            setScrollProgress(current);
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+  const handleLoadingComplete = useCallback(() => {
+    setIsLoading(false);
   }, []);
 
   // Global shortcut listener: Ctrl+K / Cmd+K for Cyber-Terminal
@@ -73,15 +61,15 @@ export default function App() {
     <div id="top" className="min-h-screen bg-[#050508] text-slate-200 font-sans antialiased selection:bg-purple-500/25 selection:text-purple-200 relative overflow-x-hidden">
       {/* 1. Cinematic Opening Sequence (Awakening) */}
       {isLoading && (
-        <CinematicLoader onComplete={() => setIsLoading(false)} />
+        <CinematicLoader onComplete={handleLoadingComplete} />
       )}
 
-      {/* 2. Persistent 3D WebGL Digital World */}
-      <WorldCanvas scrollProgress={scrollProgress} />
+      {/* 2. Persistent 3D WebGL Digital World (Zero React re-renders on scroll or pointer) */}
+      <WorldCanvas />
 
       {/* Atmospheric Ambient Lighting Gradients */}
-      <div className="fixed top-0 left-1/4 w-[600px] h-[600px] bg-purple-950/15 rounded-full blur-[160px] pointer-events-none -z-10" />
-      <div className="fixed bottom-1/4 right-1/4 w-[500px] h-[500px] bg-cyan-950/15 rounded-full blur-[160px] pointer-events-none -z-10" />
+      <div className="fixed top-0 left-1/4 w-[600px] h-[600px] bg-purple-950/15 rounded-full blur-[100px] sm:blur-[160px] pointer-events-none -z-10" />
+      <div className="fixed bottom-1/4 right-1/4 w-[500px] h-[500px] bg-cyan-950/15 rounded-full blur-[100px] sm:blur-[160px] pointer-events-none -z-10" />
 
       {/* 3. Sticky Cinematic Navigation */}
       <HeaderNav
@@ -118,18 +106,26 @@ export default function App() {
         />
       </main>
 
-      {/* Fast Contact Modal Popup (if initiated via top action buttons) */}
-      <ContactModal
-        isOpen={isContactOpen}
-        onClose={() => setIsContactOpen(false)}
-      />
+      {/* Fast Contact Modal Popup (Lazy Loaded with Suspense) */}
+      {isContactOpen && (
+        <Suspense fallback={null}>
+          <ContactModal
+            isOpen={isContactOpen}
+            onClose={() => setIsContactOpen(false)}
+          />
+        </Suspense>
+      )}
 
-      {/* Integrated Cyber-Terminal Modal (Ctrl+K) */}
-      <TerminalModal
-        isOpen={isTerminalOpen}
-        onClose={() => setIsTerminalOpen(false)}
-        onNavigate={handleTerminalNavigate}
-      />
+      {/* Integrated Cyber-Terminal Modal (Ctrl+K) (Lazy Loaded with Suspense) */}
+      {isTerminalOpen && (
+        <Suspense fallback={null}>
+          <TerminalModal
+            isOpen={isTerminalOpen}
+            onClose={() => setIsTerminalOpen(false)}
+            onNavigate={handleTerminalNavigate}
+          />
+        </Suspense>
+      )}
 
       {/* Dynamic Scroll Progress Ring & Rocket */}
       <ScrollRocket />

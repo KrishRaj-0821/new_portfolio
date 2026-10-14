@@ -227,9 +227,12 @@ function ProjectCardContent({ project }) {
           <img
             src={project.image}
             alt={project.title}
+            loading="lazy"
+            decoding="async"
             className="absolute inset-0 w-full h-full object-cover object-top opacity-75 group-hover:opacity-95 group-hover:scale-[1.03] transition-all duration-700 pointer-events-none"
             onError={(e) => {
-              e.target.src = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&auto=format&fit=crop&q=80";
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='360' viewBox='0 0 600 360'%3E%3Crect width='600' height='360' fill='%23090a12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23a78bfa' font-family='monospace' font-size='14'%3E%5B ARTIFACT PREVIEW %5D%3C/text%3E%3C/svg%3E";
             }}
           />
 

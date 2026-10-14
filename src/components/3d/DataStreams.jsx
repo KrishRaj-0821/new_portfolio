@@ -1,6 +1,7 @@
 import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { visibilityManager } from '../../utils/performance';
 
 /**
  * DataStreams:
@@ -8,12 +9,11 @@ import * as THREE from 'three';
  * Flowing bezier curves through the 3D space with traveling light packets,
  * subtle Git-like branching pathways, and soft glowing nodes.
  */
-export default function DataStreams({ scrollProgress = 0 }) {
+export default function DataStreams({ prefersReducedMotion = false }) {
   const pulsesGroupRef = useRef();
 
   // Create 3 organic data pathways threading down the world
   const pathways = useMemo(() => {
-    // Stream 1: Core pipeline
     const curve1 = new THREE.CatmullRomCurve3([
       new THREE.Vector3(0, 2, 0),
       new THREE.Vector3(1.5, -3, 0.5),
@@ -23,7 +23,6 @@ export default function DataStreams({ scrollProgress = 0 }) {
       new THREE.Vector3(0, -28, 0)
     ]);
 
-    // Stream 2: Git branch path (diverges, then reconverges)
     const curve2 = new THREE.CatmullRomCurve3([
       new THREE.Vector3(-1.8, 1, -1),
       new THREE.Vector3(-2.4, -4, 0.2),
@@ -33,7 +32,6 @@ export default function DataStreams({ scrollProgress = 0 }) {
       new THREE.Vector3(0, -28, 0)
     ]);
 
-    // Stream 3: API & packet pathway
     const curve3 = new THREE.CatmullRomCurve3([
       new THREE.Vector3(1.8, 0, -0.5),
       new THREE.Vector3(0.8, -5, -1.2),
@@ -43,10 +41,16 @@ export default function DataStreams({ scrollProgress = 0 }) {
       new THREE.Vector3(0, -28, 0)
     ]);
 
+    // Pre-sample points to eliminate polynomial spline calculation per frame
+    const sampleCount = 120;
+    const pts1 = curve1.getPoints(sampleCount);
+    const pts2 = curve2.getPoints(sampleCount);
+    const pts3 = curve3.getPoints(sampleCount);
+
     return [
-      { curve: curve1, color: '#38bdf8', points: curve1.getPoints(120), geom: new THREE.BufferGeometry().setFromPoints(curve1.getPoints(120)) },
-      { curve: curve2, color: '#a78bfa', points: curve2.getPoints(120), geom: new THREE.BufferGeometry().setFromPoints(curve2.getPoints(120)) },
-      { curve: curve3, color: '#818cf8', points: curve3.getPoints(120), geom: new THREE.BufferGeometry().setFromPoints(curve3.getPoints(120)) }
+      { curve: curve1, color: '#38bdf8', sampledPoints: pts1, geom: new THREE.BufferGeometry().setFromPoints(pts1) },
+      { curve: curve2, color: '#a78bfa', sampledPoints: pts2, geom: new THREE.BufferGeometry().setFromPoints(pts2) },
+      { curve: curve3, color: '#818cf8', sampledPoints: pts3, geom: new THREE.BufferGeometry().setFromPoints(pts3) }
     ];
   }, []);
 
@@ -63,17 +67,22 @@ export default function DataStreams({ scrollProgress = 0 }) {
   }, [packetCount]);
 
   useFrame((state) => {
+    if (!visibilityManager.isVisible || prefersReducedMotion) return;
     const t = state.clock.getElapsedTime();
 
     if (pulsesGroupRef.current) {
+      const sampleCount = 120;
       pulsesGroupRef.current.children.forEach((child, i) => {
         const pkt = packets[i];
         if (!pkt) return;
         const pathway = pathways[pkt.pathIndex];
-        // Calculate loop position [0..1]
+        // Fast pre-sampled index lookup
         const progress = (t * pkt.speed + pkt.offset) % 1;
-        const point = pathway.curve.getPointAt(progress);
-        child.position.copy(point);
+        const sampleIdx = Math.min(sampleCount - 1, Math.floor(progress * sampleCount));
+        const point = pathway.sampledPoints[sampleIdx];
+        if (point) {
+          child.position.copy(point);
+        }
       });
     }
   });

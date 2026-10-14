@@ -1,26 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Rocket, Sparkles } from 'lucide-react';
+import React, { useState } from 'react';
+import { Rocket } from 'lucide-react';
+import { useScrollProgress } from '../utils/useScrollProgress';
 
 export default function ScrollRocket() {
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
+  const progressRatio = useScrollProgress();
+  const scrollProgress = progressRatio * 100;
+  const isVisible = progressRatio > 0.03 || (typeof window !== 'undefined' && window.scrollY > 200);
   const [isLaunching, setIsLaunching] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalScroll > 0) {
-        const currentProgress = (window.scrollY / totalScroll) * 100;
-        setScrollProgress(currentProgress);
-        setIsVisible(window.scrollY > 200);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const scrollToTop = () => {
     if (isLaunching) return;

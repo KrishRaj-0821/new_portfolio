@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 /**
  * CinematicLoader:
@@ -15,12 +15,29 @@ import React, { useState, useEffect } from 'react';
 export default function CinematicLoader({ onComplete }) {
   const [step, setStep] = useState(0);
   const [isFadingOut, setIsFadingOut] = useState(false);
+  const hasCompletedRef = useRef(false);
+  const timersRef = useRef([]);
+
+  const completeOnce = useCallback(() => {
+    if (!hasCompletedRef.current) {
+      hasCompletedRef.current = true;
+      timersRef.current.forEach(clearTimeout);
+      timersRef.current = [];
+      onComplete?.();
+    }
+  }, [onComplete]);
+
+  const triggerSkip = useCallback(() => {
+    setIsFadingOut(true);
+    const t = setTimeout(() => completeOnce(), 300);
+    timersRef.current.push(t);
+  }, [completeOnce]);
 
   useEffect(() => {
     // Check prefers-reduced-motion
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (mediaQuery.matches) {
-      onComplete?.();
+    const mediaQuery = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+    if (mediaQuery?.matches) {
+      completeOnce();
       return;
     }
 
@@ -28,35 +45,29 @@ export default function CinematicLoader({ onComplete }) {
     const t2 = setTimeout(() => setStep(2), 950);   // KRISH RAJ + UNIVERSE
     const t3 = setTimeout(() => setStep(3), 1600);  // SYSTEM / CORE / WORLD
     const t4 = setTimeout(() => setIsFadingOut(true), 2400); // Begin dissolve
-    const t5 = setTimeout(() => onComplete?.(), 2900); // Finish unmount
+    const t5 = setTimeout(() => completeOnce(), 2900); // Finish unmount
+
+    timersRef.current = [t1, t2, t3, t4, t5];
 
     const handleKeyDown = (e) => {
       if (e.key === 'Escape' || e.key === 'Enter') {
-        setIsFadingOut(true);
-        setTimeout(() => onComplete?.(), 300);
+        triggerSkip();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-      clearTimeout(t4);
-      clearTimeout(t5);
+      timersRef.current.forEach(clearTimeout);
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [onComplete]);
+  }, [completeOnce, triggerSkip]);
 
   return (
     <aside
       aria-label="Loading digital environment"
       role="status"
       aria-live="polite"
-      onClick={() => {
-        setIsFadingOut(true);
-        setTimeout(() => onComplete?.(), 300);
-      }}
+      onClick={triggerSkip}
       className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#050508] text-slate-300 font-mono select-none transition-opacity duration-700 ease-out cursor-pointer ${
         isFadingOut ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}

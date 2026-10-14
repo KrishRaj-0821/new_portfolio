@@ -1,6 +1,8 @@
 import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { scrollProgressRef } from '../../utils/useScrollProgress';
+import { visibilityManager } from '../../utils/performance';
 
 /**
  * ConvergenceField:
@@ -8,7 +10,7 @@ import * as THREE from 'three';
  * Radiating radial lines and concentric orbital rings that converge
  * on the central communication beacon where connection.request() lives.
  */
-export default function ConvergenceField({ scrollProgress = 0 }) {
+export default function ConvergenceField({ prefersReducedMotion = false }) {
   const groupRef = useRef();
   const ring1Ref = useRef();
   const ring2Ref = useRef();
@@ -31,14 +33,19 @@ export default function ConvergenceField({ scrollProgress = 0 }) {
   }, []);
 
   useFrame((state) => {
-    const t = state.clock.getElapsedTime();
+    if (!visibilityManager.isVisible) return;
+    const progress = scrollProgressRef.current;
 
     if (groupRef.current) {
-      // Fade in and become prominent as user approaches the bottom (scrollProgress > 0.82)
-      const targetOpacity = Math.max(0, Math.min(1, (scrollProgress - 0.78) / 0.18));
-      groupRef.current.visible = targetOpacity > 0.01;
+      // Fade in and become prominent as user approaches the bottom (scrollProgress > 0.78)
+      const isVisible = progress > 0.76;
+      groupRef.current.visible = isVisible;
+      if (!isVisible || prefersReducedMotion) return; // skip updating rings if not visible or reduced motion
     }
 
+    if (prefersReducedMotion) return;
+
+    const t = state.clock.getElapsedTime();
     if (ring1Ref.current) {
       ring1Ref.current.rotation.z = t * 0.15;
     }

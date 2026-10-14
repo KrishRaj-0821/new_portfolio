@@ -1,6 +1,8 @@
 import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { scrollProgressRef } from '../../utils/useScrollProgress';
+import { visibilityManager } from '../../utils/performance';
 
 /**
  * DeveloperCore:
@@ -9,7 +11,7 @@ import * as THREE from 'three';
  * floating system satellites (Terminal, API, DB, Git, Algorithms, AI),
  * and subtle pulse animations.
  */
-export default function DeveloperCore({ scrollProgress = 0, pointer = { x: 0, y: 0 } }) {
+export default function DeveloperCore({ pointerRef, prefersReducedMotion = false }) {
   const groupRef = useRef();
   const innerRef = useRef();
   const ring1Ref = useRef();
@@ -39,16 +41,20 @@ export default function DeveloperCore({ scrollProgress = 0, pointer = { x: 0, y:
   }, [nodes]);
 
   useFrame((state, delta) => {
+    if (!visibilityManager.isVisible) return;
     const t = state.clock.getElapsedTime();
+    const scrollProgress = scrollProgressRef.current;
+    const pointer = pointerRef?.current || { x: 0, y: 0 };
 
     if (groupRef.current) {
-      // Gentle floating and pointer response
+      // Gentle floating and pointer response (static if reduced motion)
       const targetY = (1 - Math.min(scrollProgress * 2.5, 1.5)) * 0.8;
-      groupRef.current.position.y = THREE.MathUtils.lerp(groupRef.current.position.y, targetY + Math.sin(t * 0.8) * 0.12, 0.05);
+      const floatOffset = prefersReducedMotion ? 0 : Math.sin(t * 0.8) * 0.12;
+      groupRef.current.position.y = THREE.MathUtils.lerp(groupRef.current.position.y, targetY + floatOffset, 0.05);
       
       // Pointer parallax rotation
-      const targetRotX = pointer.y * 0.25;
-      const targetRotY = pointer.x * 0.35 + t * 0.05;
+      const targetRotX = prefersReducedMotion ? 0 : pointer.y * 0.25;
+      const targetRotY = prefersReducedMotion ? 0 : pointer.x * 0.35 + t * 0.05;
       groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, targetRotX, 0.04);
       groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, targetRotY, 0.04);
 
@@ -57,24 +63,26 @@ export default function DeveloperCore({ scrollProgress = 0, pointer = { x: 0, y:
       groupRef.current.scale.setScalar(scaleFactor);
     }
 
-    if (innerRef.current) {
-      innerRef.current.rotation.x = t * 0.2;
-      innerRef.current.rotation.z = t * 0.15;
-    }
+    if (!prefersReducedMotion) {
+      if (innerRef.current) {
+        innerRef.current.rotation.x = t * 0.2;
+        innerRef.current.rotation.z = t * 0.15;
+      }
 
-    if (ring1Ref.current) {
-      ring1Ref.current.rotation.x = t * 0.4;
-      ring1Ref.current.rotation.y = t * 0.1;
-    }
+      if (ring1Ref.current) {
+        ring1Ref.current.rotation.x = t * 0.4;
+        ring1Ref.current.rotation.y = t * 0.1;
+      }
 
-    if (ring2Ref.current) {
-      ring2Ref.current.rotation.y = t * 0.35;
-      ring2Ref.current.rotation.z = t * 0.2;
-    }
+      if (ring2Ref.current) {
+        ring2Ref.current.rotation.y = t * 0.35;
+        ring2Ref.current.rotation.z = t * 0.2;
+      }
 
-    if (ring3Ref.current) {
-      ring3Ref.current.rotation.z = t * 0.3;
-      ring3Ref.current.rotation.x = t * 0.15;
+      if (ring3Ref.current) {
+        ring3Ref.current.rotation.z = t * 0.3;
+        ring3Ref.current.rotation.x = t * 0.15;
+      }
     }
   });
 

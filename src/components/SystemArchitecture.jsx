@@ -15,90 +15,90 @@ import {
   CheckCircle2
 } from 'lucide-react';
 
+const corePipeline = [
+  {
+    id: 'user',
+    title: 'USER / CLIENT',
+    role: 'Interaction & Dispatch',
+    desc: 'Mobile-first client views trigger structured events and asynchronous HTTP requests.',
+    icon: Globe,
+    color: '#38bdf8',
+    step: 1
+  },
+  {
+    id: 'frontend',
+    title: 'FRONTEND UI',
+    role: 'Reactive State & DOM',
+    desc: 'React component hierarchy, Tailwind utility layouts, client validation & local state caching.',
+    icon: Layers,
+    color: '#818cf8',
+    step: 2
+  },
+  {
+    id: 'api',
+    title: 'REST API GATEWAY',
+    role: 'Routing & Serializers',
+    desc: 'RESTful endpoints, route parameter parsing, JSON validation & CORS access policies.',
+    icon: Zap,
+    color: '#a78bfa',
+    step: 3
+  },
+  {
+    id: 'backend',
+    title: 'DJANGO BACKEND',
+    role: 'Business Logic & Services',
+    desc: 'Python & Django viewsets, architectural services, scheduling algorithms & advisory engines.',
+    icon: Server,
+    color: '#10b981',
+    step: 4
+  },
+  {
+    id: 'database',
+    title: 'RELATIONAL DBMS',
+    role: 'Persistence & Integrity',
+    desc: 'Normalized relational schemas, ACID transactions, doctor slot indexing & consultation logs.',
+    icon: Database,
+    color: '#f59e0b',
+    step: 5
+  }
+];
+
+const supportingNodes = [
+  {
+    id: 'auth',
+    title: 'AUTH & SECURITY',
+    desc: 'Credential validation, token sessions & sanitization.',
+    icon: Shield,
+    color: '#ec4899'
+  },
+  {
+    id: 'ai',
+    title: 'AI / ALGORITHMS',
+    desc: 'Smart crop heuristics (AAGAM) & dynamic revision schedulers (Guru Jii).',
+    icon: Cpu,
+    color: '#c084fc'
+  },
+  {
+    id: 'cache',
+    title: 'STORAGE & CACHE',
+    desc: 'Chrome Storage persistence (Quick Notes) & local browser state.',
+    icon: Database,
+    color: '#06b6d4'
+  },
+  {
+    id: 'deploy',
+    title: 'CI/CD & HOSTING',
+    desc: 'Vercel, Netlify & GitHub Actions deployment environments.',
+    icon: Cloud,
+    color: '#ffffff'
+  }
+];
+
 export default function SystemArchitecture() {
   const [activeStep, setActiveStep] = useState(0); // 0 = Idle, 1 = User, 2 = Frontend, 3 = API, 4 = Backend, 5 = Database, 6 = Return
   const [isSimulating, setIsSimulating] = useState(false);
   const [selectedNode, setSelectedNode] = useState('pipeline');
   const [simulationLog, setSimulationLog] = useState('System ready. Click "Dispatch Request" to trace packet lifecycle.');
-
-  const corePipeline = [
-    {
-      id: 'user',
-      title: 'USER / CLIENT',
-      role: 'Interaction & Dispatch',
-      desc: 'Mobile-first client views trigger structured events and asynchronous HTTP requests.',
-      icon: Globe,
-      color: '#38bdf8',
-      step: 1
-    },
-    {
-      id: 'frontend',
-      title: 'FRONTEND UI',
-      role: 'Reactive State & DOM',
-      desc: 'React component hierarchy, Tailwind utility layouts, client validation & local state caching.',
-      icon: Layers,
-      color: '#818cf8',
-      step: 2
-    },
-    {
-      id: 'api',
-      title: 'REST API GATEWAY',
-      role: 'Routing & Serializers',
-      desc: 'RESTful endpoints, route parameter parsing, JSON validation & CORS access policies.',
-      icon: Zap,
-      color: '#a78bfa',
-      step: 3
-    },
-    {
-      id: 'backend',
-      title: 'DJANGO BACKEND',
-      role: 'Business Logic & Services',
-      desc: 'Python & Django viewsets, architectural services, scheduling algorithms & advisory engines.',
-      icon: Server,
-      color: '#10b981',
-      step: 4
-    },
-    {
-      id: 'database',
-      title: 'RELATIONAL DBMS',
-      role: 'Persistence & Integrity',
-      desc: 'Normalized relational schemas, ACID transactions, doctor slot indexing & consultation logs.',
-      icon: Database,
-      color: '#f59e0b',
-      step: 5
-    }
-  ];
-
-  const supportingNodes = [
-    {
-      id: 'auth',
-      title: 'AUTH & SECURITY',
-      desc: 'Credential validation, token sessions & sanitization.',
-      icon: Shield,
-      color: '#ec4899'
-    },
-    {
-      id: 'ai',
-      title: 'AI / ALGORITHMS',
-      desc: 'Smart crop heuristics (AAGAM) & dynamic revision schedulers (Guru Jii).',
-      icon: Cpu,
-      color: '#c084fc'
-    },
-    {
-      id: 'cache',
-      title: 'STORAGE & CACHE',
-      desc: 'Chrome Storage persistence (Quick Notes) & local browser state.',
-      icon: Database,
-      color: '#06b6d4'
-    },
-    {
-      id: 'deploy',
-      title: 'CI/CD & HOSTING',
-      desc: 'Vercel, Netlify & GitHub Actions deployment environments.',
-      icon: Cloud,
-      color: '#ffffff'
-    }
-  ];
 
   const triggerSimulation = () => {
     if (isSimulating) return;
